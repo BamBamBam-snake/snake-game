@@ -1,7 +1,7 @@
 #include "map.h"
 #include <locale.h>
 
-Map:: Map(){
+void init_window(){
     // initscr(): ncurses TUI 모드 시작
     initscr();
     // start_color(): 색깔 사용
@@ -10,14 +10,14 @@ Map:: Map(){
     setlocale(LC_ALL, "");
     // @window_map: x = 15, y = 15 위치에 가로 30, 세로 40의 크기의 윈도우
     window_map = newwin(30, 40, 15, 15);
-     // @window_mission: 미션 표시 윈도우
+    // @window_mission: 미션 표시 윈도우
     window_mission = newwin(10, 30, 5, 15);
     // @window_score: 점수 표시 윈도우
     window_score = newwin(10, 30, 5, 55);
 }
 
 // update_map: map 윈도우를 업데이트
-void Map:: update_map()
+void update_map()
 {    
     // @stage 배열 값에 따라 윈도우 구성
     for(int row = 0; row < 30; row++){
@@ -62,7 +62,7 @@ void Map:: update_map()
 }
 
 // update_mission: 미션 윈도우를 업데이트
-void Map:: update_mission(){
+void update_mission(){
     // 윈도우 테두리 출력
     wborder(window_mission, '|', '|', '-', '-', '+', '+', '+', '+');
 
@@ -81,7 +81,7 @@ void Map:: update_mission(){
 }
 
 // update_score: 스코어 윈도우를 업데이트
-void Map:: update_score(){
+void update_score(){
     
      // todo // 
      // int current_length, current_grow_item, current_poison_item, current_num_of_passed_gate
@@ -108,7 +108,7 @@ void Map:: update_score(){
 }
 
 // del_win(): 모든 윈도우를 제거
-void Map:: del_win(){
+void del_win(){
     delwin(window_map);
     delwin(window_mission);
     delwin(window_score);
@@ -116,21 +116,21 @@ void Map:: del_win(){
     endwin();
 }
 
-// 테스트하기 위한 main 
-int main(int argc, char const *argv[])
+// 맵 테스트를 위한 main 함수
+int main()
 {   
-    Map map;
-    map.update_map();
-    map.update_score();
-    map.update_mission();
+    // 윈도우 초기화
+    init_window();
+    update_map();
+    update_score();
+    update_mission();
 
     // getch() : 프로그램을 일시 정지하고 한 문자를 입력받으면 프로그램 계속 진행
     getch();
 
     // 윈도우를 소멸시킴
-    map.del_win();
+    del_win();
     endwin();
 
     return 0;
 }
-
