@@ -8,6 +8,10 @@ void Map:: init_window(){
     start_color(); 
     // 유니코드 사용
     setlocale(LC_ALL, "");
+    // 커서 안보이게함
+    curs_set(0);
+    // 키보드 입력한 값을 화면에 안보이게함
+    noecho();
    
     // @window_map: x = 15, y = 15 위치에 가로 40, 세로 30의 크기의 윈도우
     window_map = newwin(30, 40, 15, 15);
@@ -20,7 +24,6 @@ void Map:: init_window(){
 // update_map: map 윈도우를 업데이트
 Stage Map:: update_map(Stage s)
 {    
-    
     // @stage 배열 값에 따라 윈도우 구성
     for(int row = 0; row < 30; row++){
         for(int col = 0; col < 40; col++){
