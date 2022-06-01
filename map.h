@@ -2,6 +2,7 @@
 #include "item.h"
 #include "stage.h"
 #include "gate.h"
+#include "snake.h"
 #include <ncurses.h>
 #include <clocale>
 #include <locale.h>

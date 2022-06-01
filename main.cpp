@@ -8,18 +8,21 @@
 // 맵 테스트를 위한 main 함수
 
 int main()
-{   Item i;
+{
+    Item i;
     Gate g;
     Stage s;
     Map m;
+    Snake ms;
     // bool is_gameover = 0;
     // while(!(is_gameover)){
-        
+
     // }
     // 윈도우 초기화
     m.init_window();
     s = i.generate_item(s);
     s = g.generate_gate(s);
+    s = ms.makeSnake(s);
     s = m.update_map(s);
     m.update_score();
     m.update_mission();
