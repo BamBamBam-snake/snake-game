@@ -57,7 +57,7 @@ Stage Snake::setDirection(Stage s)
     case KEY_UP:
         if (movingDirection == 'u')
         {
-            g // 반대방향 키를 누르면 게임 종료
+            // 반대방향 키를 누르면 게임 종료
         }
         movingDirection = 'd'; // 아래 방향
         headRow--;
