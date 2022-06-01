@@ -22,17 +22,19 @@ Stage Snake::setInitialSnake(Stage s)
 
 Stage Snake::setDirection(Stage s)
 {
-
-    bool gameOver = false;
-    char key = getch();
+    nodelay(stdscr, true);
+    int key = getch();
+    keypad(stdscr, TRUE);
+    curs_set(0);
+    noecho();
 
     switch (key)
     {
 
-    case 'd':
+    case KEY_RIGHT:
         if (movingDirection == 'l')
         {
-            gameOver = true; // 반대방향 키를 누르면 게임 종료
+            // 반대방향 키를 누르면 게임 종료
         }
         movingDirection = 'r'; // 우측 방향
         headCol++;
@@ -40,10 +42,10 @@ Stage Snake::setDirection(Stage s)
         tail_y_dir = 0;
         break;
 
-    case 'a':
+    case KEY_LEFT:
         if (movingDirection == 'r')
         {
-            gameOver = true; // 반대방향 키를 누르면 게임 종료
+            // 반대방향 키를 누르면 게임 종료
         }
         movingDirection = 'l'; // 좌측 방향
         headCol--;
@@ -52,10 +54,10 @@ Stage Snake::setDirection(Stage s)
 
         break;
 
-    case 'w':
+    case KEY_UP:
         if (movingDirection == 'u')
         {
-            gameOver = true; // 반대방향 키를 누르면 게임 종료
+            g // 반대방향 키를 누르면 게임 종료
         }
         movingDirection = 'd'; // 아래 방향
         headRow--;
@@ -63,10 +65,10 @@ Stage Snake::setDirection(Stage s)
         tail_y_dir = 1;
         break;
 
-    case 's':
+    case KEY_DOWN:
         if (movingDirection == 'd')
         {
-            gameOver = true; // 반대방향 키를 누르면 게임 종료
+            // 반대방향 키를 누르면 게임 종료
         }
         movingDirection = 'u'; // 위쪽 방향
         headRow++;
