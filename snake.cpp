@@ -1,7 +1,7 @@
 #include <ncurses.h>
 #include "snake.h"
 
-Stage Snake::setInitialSnake(Stage s)
+void Snake:: setInitialSnake()
 {
     // 우측방향으로 이동
     movingDirection = 0;
@@ -15,12 +15,11 @@ Stage Snake::setInitialSnake(Stage s)
     headRow = 8;
     headCol = 8;
 
-    return s;
 }
 
 // 뱀 이동 위치 설정
 
-Stage Snake::setDirection(Stage s)
+void Snake::setDirection()
 {
     nodelay(stdscr, true);
     int key = getch();
@@ -76,7 +75,6 @@ Stage Snake::setDirection(Stage s)
         tail_y_dir = -1;
         break;
     }
-    return s;
 }
 
 // 스네이크 삭제

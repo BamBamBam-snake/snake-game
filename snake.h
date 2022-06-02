@@ -6,8 +6,8 @@
 class Snake
 {
 public:
-    Stage setInitialSnake(Stage s);
-    Stage setDirection(Stage s);
+    void setInitialSnake();
+    void setDirection();
     Stage makeSnake(Stage s);
     Stage removeSnake(Stage s);
 

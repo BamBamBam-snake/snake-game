@@ -1,7 +1,6 @@
 CC=g++
 TARGET=snakegame
 OBJECTS= map.cpp main.cpp item.cpp gate.cpp snake.cpp
-#  gate.cpp item.cpp
 
 all:$(TARGET)
 

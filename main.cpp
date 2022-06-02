@@ -4,39 +4,33 @@
 
 #include "map.h"
 
-// #include "item.cpp"
-// #include "gate.cpp"
-
 // 맵 테스트를 위한 main 함수
-
 int main()
 {
     Item i;
     Gate g;
     Stage s;
     Map m;
-    Snake ms;
-    // bool is_gameover = 0;
-    // while(!(is_gameover)){
+    Snake snake;
 
-    // }
-    // 윈도우 초기화
-    m.init_window();
-    s = i.generate_item(s);
-    s = g.generate_gate(s);
+    m.init_window(); // 맵 초기화
+    // *todo* //
+    // 일정 시간이 지나면 아이템, 게이트 재생성 // 
+    s = i.generate_item(s); // 맵에 아이템 생성
+    s = g.generate_gate(s); // 맵에 게이트 생성
 
-    s = ms.setInitialSnake(s); // 초기 스네이크 위치 세팅
-    s = ms.makeSnake(s);       // 스네이크 생성
+    snake.setInitialSnake(); // 초기 스네이크 위치 세팅
+    s = snake.makeSnake(s);       // 스네이크 생성
 
-     s = m.update_map(s);
+    s = m.update_map(s);
     m.update_score();
     m.update_mission();
 
     while (true)
     {
-        s = ms.removeSnake(s);  // 기존 스네이크 지우기
-        s = ms.setDirection(s); // 스네이크 방향 탐지
-        s = ms.makeSnake(s);    // 스네이크 새로 생성
+        s = snake.removeSnake(s);  // 기존 스네이크 지우기
+        snake.setDirection(); // 스네이크 방향 탐지
+        s = snake.makeSnake(s);    // 스네이크 새로 생성
 
         s = m.update_map(s);
         m.update_score();

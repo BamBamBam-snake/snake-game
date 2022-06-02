@@ -12,6 +12,10 @@ void Map:: init_window(){
     curs_set(0);
     // 키보드 입력한 값을 화면에 안보이게함
     noecho();
+
+    // mvprintw(20, 60, "Press S to start game");
+    // mvprintw(22, 60, " ↑ : Up → : Right  ← : Left ↓ : Down ");
+    // mvprintw(24, 60, "Press Q to exit game");
    
     // @window_map: x = 15, y = 15 위치에 가로 40, 세로 30의 크기의 윈도우
     window_map = newwin(30, 40, 15, 15);
