@@ -15,12 +15,12 @@ int main()
 
     m.init_window(); // 맵 초기화
     // *todo* //
-    // 일정 시간이 지나면 아이템, 게이트 재생성 // 
+    // 일정 시간이 지나면 아이템, 게이트 재생성 //
     s = i.generate_item(s); // 맵에 아이템 생성
     s = g.generate_gate(s); // 맵에 게이트 생성
 
     snake.setInitialSnake(); // 초기 스네이크 위치 세팅
-    s = snake.makeSnake(s);       // 스네이크 생성
+    s = snake.makeSnake(s);  // 스네이크 생성
 
     s = m.update_map(s);
     m.update_score();
@@ -28,9 +28,10 @@ int main()
 
     while (true)
     {
-        s = snake.removeSnake(s);  // 기존 스네이크 지우기
-        snake.setDirection(); // 스네이크 방향 탐지
-        s = snake.makeSnake(s);    // 스네이크 새로 생성
+        s = snake.removeSnake(s); // 기존 스네이크 지우기
+        snake.setDirection();     // 스네이크 방향 탐지
+        snake.checkItem(s); // 아이템을 먹었는지 확인
+        s = snake.makeSnake(s); // 스네이크 새로 생성
 
         s = m.update_map(s);
         m.update_score();

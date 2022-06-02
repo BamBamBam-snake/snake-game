@@ -1,7 +1,7 @@
 #include <ncurses.h>
 #include "snake.h"
 
-void Snake:: setInitialSnake()
+void Snake::setInitialSnake()
 {
     // 우측방향으로 이동
     movingDirection = 0;
@@ -14,7 +14,6 @@ void Snake:: setInitialSnake()
     // 스네이크 머리 위치
     headRow = 8;
     headCol = 8;
-
 }
 
 // 뱀 이동 위치 설정
@@ -75,6 +74,17 @@ void Snake::setDirection()
         tail_y_dir = -1;
         break;
     }
+
+}
+
+// 아이템을 먹었는지 판단.
+void Snake::checkItem(Stage s)
+{
+    if (s.stage[s.num_of_stage][headRow][headCol] == 5) // Growth Item을 먹었을때
+        snakeLen++;                                     // 스네이크 길이 증가
+
+    else if (s.stage[s.num_of_stage][headRow][headCol] == 6) // Poison Item을 먹었을때
+        snakeLen--;                                          // 스네이크 길이 감소
 }
 
 // 스네이크 삭제
