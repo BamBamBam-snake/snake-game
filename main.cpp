@@ -30,7 +30,7 @@ int main()
     {
         s = snake.removeSnake(s); // 기존 스네이크 지우기
         snake.setDirection();     // 스네이크 방향 탐지
-        snake.checkItem(s); // 아이템을 먹었는지 확인
+        snake.checkPosition(s); // 스네이크가 이동한 위치 확인 (아이템, 게이트, 벽이 존재하는지)
         s = snake.makeSnake(s); // 스네이크 새로 생성
 
         s = m.update_map(s);

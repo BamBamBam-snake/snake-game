@@ -74,17 +74,62 @@ void Snake::setDirection()
         tail_y_dir = -1;
         break;
     }
-
 }
 
 // 아이템을 먹었는지 판단.
-void Snake::checkItem(Stage s)
+void Snake::checkPosition(Stage s)
 {
-    if (s.stage[s.num_of_stage][headRow][headCol] == 5) // Growth Item을 먹었을때
-        snakeLen++;                                     // 스네이크 길이 증가
 
-    else if (s.stage[s.num_of_stage][headRow][headCol] == 6) // Poison Item을 먹었을때
-        snakeLen--;                                          // 스네이크 길이 감소
+    // Growth Item을 먹었을때
+    if (s.stage[s.num_of_stage][headRow][headCol] == 5)
+        snakeLen++; // 스네이크 길이 증가
+
+    // Poison Item을 먹었을때
+    else if (s.stage[s.num_of_stage][headRow][headCol] == 6)
+        snakeLen--; // 스네이크 길이 감소
+
+    // 게이트를 들어갈때
+    else if (s.stage[s.num_of_stage][headRow][headCol] == 7)
+    {
+        for (int i = 0; i < 30; i++)
+        {
+            for (int j = 0; j < 40; j++)
+            {
+                if (s.stage[s.num_of_stage][i][j] == 7 && !(i == headRow && j == headCol))
+                {
+                    headRow = i;
+                    headCol = j;
+
+                    if (i == 0)
+                    {
+                        movingDirection = 'd'; // 아래쪽 방향
+                    }
+                    else if (i == 29)
+                    {
+                        movingDirection = 'u'; // 위쪽 방향
+                    }
+
+                    else if (j == 0)
+                    {
+                        movingDirection = 'r'; // 오른쪽 방향
+                    }
+
+                    else if (j == 39)
+                    {
+                        movingDirection = 'l'; // 왼쪽 방향
+                    }
+
+                    break;
+                }
+            }
+        }
+    }
+
+    //벽에 충돌할때
+    else if (s.stage[s.num_of_stage][headRow][headCol] == 1)
+    {
+        // 게임 종료
+    }
 }
 
 // 스네이크 삭제
