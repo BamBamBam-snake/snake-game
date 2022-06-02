@@ -8,7 +8,7 @@ class Snake
 public:
     void setInitialSnake();
     void setDirection();
-    void checkItem(Stage s);
+    void checkPosition(Stage s);
 
     Stage makeSnake(Stage s);
     Stage removeSnake(Stage s);
