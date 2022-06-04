@@ -18,4 +18,6 @@ public:
     char movingDirection; // r, l, u, d
     int tail_x_dir;       //   -1 , 1
     int tail_y_dir;       // -1 , 1
+
+    int isGameOver = false; // 게임 패배
 };

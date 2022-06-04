@@ -32,7 +32,7 @@ void Snake::setDirection()
     case KEY_RIGHT:
         if (movingDirection == 'l')
         {
-            // 반대방향 키를 누르면 게임 종료
+            isGameOver = true; // 반대방향 키를 누르면 게임 종료
         }
         movingDirection = 'r'; // 우측 방향
         headCol++;
@@ -43,7 +43,7 @@ void Snake::setDirection()
     case KEY_LEFT:
         if (movingDirection == 'r')
         {
-            // 반대방향 키를 누르면 게임 종료
+            isGameOver = true; // 반대방향 키를 누르면 게임 종료
         }
         movingDirection = 'l'; // 좌측 방향
         headCol--;
@@ -55,7 +55,7 @@ void Snake::setDirection()
     case KEY_UP:
         if (movingDirection == 'u')
         {
-            // 반대방향 키를 누르면 게임 종료
+            isGameOver = true; // 반대방향 키를 누르면 게임 종료
         }
         movingDirection = 'd'; // 아래 방향
         headRow--;
@@ -66,7 +66,7 @@ void Snake::setDirection()
     case KEY_DOWN:
         if (movingDirection == 'd')
         {
-            // 반대방향 키를 누르면 게임 종료
+            isGameOver = true; // 반대방향 키를 누르면 게임 종료
         }
         movingDirection = 'u'; // 위쪽 방향
         headRow++;
@@ -87,10 +87,15 @@ void Snake::checkPosition(Stage s)
     // Poison Item을 먹었을때
     else if (s.stage[s.num_of_stage][headRow][headCol] == 6)
         snakeLen--; // 스네이크 길이 감소
+    if (snakeLen < 3)
+    {
+        isGameOver = true; // 스네이크의 길이가 3보다 작으면 게임 종료
+    }
 
     // 게이트를 들어갈때
     else if (s.stage[s.num_of_stage][headRow][headCol] == 7)
     {
+        bool exitOuterLoop = false;
         for (int i = 0; i < 30; i++)
         {
             for (int j = 0; j < 40; j++)
@@ -103,32 +108,42 @@ void Snake::checkPosition(Stage s)
                     if (i == 0)
                     {
                         movingDirection = 'd'; // 아래쪽 방향
+                        tail_x_dir = 0;
+                        tail_y_dir = 1;
                     }
                     else if (i == 29)
                     {
                         movingDirection = 'u'; // 위쪽 방향
+                        tail_x_dir = 0;
+                        tail_y_dir = -1;
                     }
 
                     else if (j == 0)
                     {
                         movingDirection = 'r'; // 오른쪽 방향
+                        tail_x_dir = -1;
+                        tail_y_dir = 0;
                     }
 
                     else if (j == 39)
                     {
                         movingDirection = 'l'; // 왼쪽 방향
+                        tail_x_dir = 1;
+                        tail_y_dir = 0;
                     }
-
+                    exitOuterLoop = true;
                     break;
                 }
             }
+            if (exitOuterLoop == true)
+                break;
         }
     }
 
     //벽에 충돌할때
     else if (s.stage[s.num_of_stage][headRow][headCol] == 1)
     {
-        // 게임 종료
+        isGameOver = true; // 반대방향 키를 누르면 게임 종료
     }
 }
 
