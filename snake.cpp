@@ -108,20 +108,28 @@ void Snake::checkPosition(Stage s)
                     if (i == 0)
                     {
                         movingDirection = 'd'; // 아래쪽 방향
+                        tail_x_dir = 0;
+                        tail_y_dir = 1;
                     }
                     else if (i == 29)
                     {
                         movingDirection = 'u'; // 위쪽 방향
+                        tail_x_dir = 0;
+                        tail_y_dir = -1;
                     }
 
                     else if (j == 0)
                     {
                         movingDirection = 'r'; // 오른쪽 방향
+                        tail_x_dir = -1;
+                        tail_y_dir = 0;
                     }
 
                     else if (j == 39)
                     {
                         movingDirection = 'l'; // 왼쪽 방향
+                        tail_x_dir = 1;
+                        tail_y_dir = 0;
                     }
                     exitOuterLoop = true;
                     break;
