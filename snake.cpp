@@ -95,6 +95,7 @@ void Snake::checkPosition(Stage s)
     // 게이트를 들어갈때
     else if (s.stage[s.num_of_stage][headRow][headCol] == 7)
     {
+        bool exitOuterLoop = false;
         for (int i = 0; i < 30; i++)
         {
             for (int j = 0; j < 40; j++)
@@ -122,10 +123,12 @@ void Snake::checkPosition(Stage s)
                     {
                         movingDirection = 'l'; // 왼쪽 방향
                     }
-
+                    exitOuterLoop = true;
                     break;
                 }
             }
+            if (exitOuterLoop == true)
+                break;
         }
     }
 
