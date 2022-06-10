@@ -28,9 +28,24 @@ int main()
 
     while (true)
     {
+        nodelay(stdscr, true); // 딜레이 없이 게임 진행
         s = snake.removeSnake(s); // 기존 스네이크 지우기
         snake.setDirection();     // 스네이크 방향 탐지
+        
         snake.checkPosition(s); // 스네이크가 이동한 위치 확인 (아이템, 게이트, 벽이 존재하는지)
+        if(snake.isGameOver){ // 게임 종료 조건에 충족했을경우 (벽 충돌, 방향키 반대)
+            m.update_gameover();
+            break;
+        }
+
+        // 스테이지 클리어의 경우
+        // m.update_stageclear();
+        
+        // 게임 클리어의 경우
+        // m.update_gameclear();
+
+        
+
         s = snake.makeSnake(s); // 스네이크 새로 생성
 
         s = m.update_map(s);
@@ -40,12 +55,8 @@ int main()
         usleep(200000); // 0.2초 sleep
     }
 
-    // getch() : 프로그램을 일시 정지하고 한 문자를 입력받으면 프로그램 계속 진행
-    getch();
-
     // 윈도우를 소멸시킴
     m.del_win();
-    endwin();
 
     return 0;
 }

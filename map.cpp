@@ -23,6 +23,12 @@ void Map:: init_window(){
     window_mission = newwin(10, 30, 5, 15);
     // @window_score: 점수 표시 윈도우
     window_score = newwin(10, 30, 5, 55);
+    // @window_gameover: 게임 오버 윈도우
+    window_gameover = newwin(5, 30, 15, 55);
+    // @window_stageclear: 스테이지 클리어 윈도우
+    window_stageclear = newwin(5, 30, 15, 55);
+    // @window_gameclear: 게임 클리어 윈도우
+    window_gameclear = newwin(5, 30, 15, 55);
 }
 
 // update_map: map 윈도우를 업데이트
@@ -114,6 +120,61 @@ void Map:: update_score(){
     // 미션 성공시 출력 ex) Current Gate : 3 ( v )
     // *todo*
 
+}
+
+void Map:: update_gameover(){
+    // 윈도우 테두리 출력
+    wborder(window_gameover, '|', '|', '-', '-', '+', '+', '+', '+');
+
+    // todo //
+    // int goal_length, goal_growth_item, goal_poison_item, goal_number_of_passed_gate
+
+    mvwprintw(window_gameover, 2, 10, "*GameOver*");
+
+    // 윈도우 refresh
+    refresh();
+    wrefresh(window_gameover);
+    // 다시 딜레이 설정 후, 아무 키나 입력 받으면 종료
+    nodelay(stdscr, false);
+    getch();
+    wclear(window_gameover);
+}
+
+void Map:: update_gameclear(){
+    // 윈도우 테두리 출력
+    wborder(window_gameclear, '|', '|', '-', '-', '+', '+', '+', '+');
+
+    // todo //
+    // int goal_length, goal_growth_item, goal_poison_item, goal_number_of_passed_gate
+
+    mvwprintw(window_gameclear, 2, 10, "*GameClear*");
+
+    // 윈도우 refresh
+    refresh();
+    wrefresh(window_gameclear);
+    // 다시 딜레이 설정 후, 아무 키나 입력 받으면 종료
+    nodelay(stdscr, false);
+    getch();
+    wclear(window_gameclear);
+}
+
+void Map:: update_stageclear(){
+    // 윈도우 테두리 출력
+    wborder(window_stageclear, '|', '|', '-', '-', '+', '+', '+', '+');
+
+    // todo //
+    // int goal_length, goal_growth_item, goal_poison_item, goal_number_of_passed_gate
+
+    mvwprintw(window_stageclear, 2, 10, "*Stage Clear*");
+    mvwprintw(window_stageclear, 2, 10, "*Press any key to go next stage*");
+
+    // 윈도우 refresh
+    refresh();
+    wrefresh(window_stageclear);
+    // 다시 딜레이 설정 후, 아무 키나 입력 받으면 종료
+    nodelay(stdscr, false);
+    getch();
+    wclear(window_stageclear);
 }
 
 // del_win(): 모든 윈도우를 제거

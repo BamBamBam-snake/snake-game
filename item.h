@@ -9,4 +9,5 @@ class Item{
         int num_of_growth;
         int row, col;
         int cnt;
+    
 };
