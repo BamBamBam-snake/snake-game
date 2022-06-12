@@ -16,6 +16,8 @@ Stage Item:: generate_item(Stage s){
         // @col : 아이템을 생성할 열 좌표, 0 ~ 39 까지의 난수
         col = rand() % 40;
 
+        // 아이템 생성 좌표를 저장
+        item_position[cnt][0] = row; item_position[cnt][1] = col;
         // map안에 있을 경우
         if(s.stage[s.num_of_stage][row][col] == 0){
             // 성장 아이템 수가 생성한 아이템 수보다 작은 경우 성장 아이템 생성
@@ -29,9 +31,15 @@ Stage Item:: generate_item(Stage s){
                 s.stage[s.num_of_stage][row][col] = 6;
                 cnt++;
             }
-            }
-            
         }
+            
+    }
+    return s;
+}
 
+Stage Item:: delete_item(Stage s){
+    for(int i = 0; i < 4; i++){
+        s.stage[s.num_of_stage][item_position[i][0]][item_position[i][1]] = 0;
+    }
     return s;
 }
