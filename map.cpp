@@ -23,12 +23,19 @@ void Map:: init_window(){
     window_mission = newwin(10, 30, 5, 15);
     // @window_score: 점수 표시 윈도우
     window_score = newwin(10, 30, 5, 55);
-    // @window_gameover: 게임 오버 윈도우
-    window_gameover = newwin(5, 30, 15, 55);
-    // @window_stageclear: 스테이지 클리어 윈도우
-    window_stageclear = newwin(5, 30, 15, 55);
-    // @window_gameclear: 게임 클리어 윈도우
-    window_gameclear = newwin(5, 30, 15, 55);
+    // @window_status: 게임 상태 표시 윈도우
+    window_status = newwin(5, 30, 15, 55);
+
+    // 윈도우 테두리 출력
+    wborder(window_status, '|', '|', '-', '-', '+', '+', '+', '+');
+
+    // todo //
+    // int goal_length, goal_growth_item, goal_poison_item, goal_number_of_passed_gate
+
+    mvwprintw(window_status, 2, 4, "Press any key to start");
+     // 윈도우 refresh
+    refresh();
+    wrefresh(window_status);
 }
 
 // update_map: map 윈도우를 업데이트
@@ -79,102 +86,63 @@ Stage Map:: update_map(Stage s)
     return s;
 }
 
-// update_mission: 미션 윈도우를 업데이트
-void Map:: update_mission(){
-    // 윈도우 테두리 출력
-    wborder(window_mission, '|', '|', '-', '-', '+', '+', '+', '+');
-
-    // todo //
-    // int goal_length, goal_growth_item, goal_poison_item, goal_number_of_passed_gate
-
-    mvwprintw(window_mission, 1, 10, "*Mission*");
-    mvwprintw(window_mission, 3, 2, "Goal Length : %d", 0);
-    mvwprintw(window_mission, 4, 2, "Goal Growth Item : %d", 0);
-    mvwprintw(window_mission, 5, 2, "Goal Posion Item : %d", 0);
-    mvwprintw(window_mission, 6, 2, "Goal Gate : %d", 0);
-
-    // 윈도우 refresh
-    refresh();
-    wrefresh(window_mission);
-}
-
-// update_score: 스코어 윈도우를 업데이트
-void Map:: update_score(){
-    
-     // todo // 
-     // int current_length, current_grow_item, current_poison_item, current_num_of_passed_gate
-
-    // 윈도우 테두리 출력
-    wborder(window_score, '|', '|', '-', '-', '+', '+', '+', '+');
-
-    mvwprintw(window_score, 1, 11, "#Score#"); 
-    mvwprintw(window_score, 3, 2, "Current Length : %d / %d", 0, 0);  // current / max
-    mvwprintw(window_score, 4, 2, "Current Growth Item :   %d  ", 0);
-    mvwprintw(window_score, 5, 2, "Current Poison Item :   %d  ", 0);
-    mvwprintw(window_score, 6, 2, "Current Gate :   %d   ", 0);
-
-    // 윈도우 refresh
-    refresh();
-    wrefresh(window_score);
-    
-    // 미션 성공시 출력 ex) Current Gate : 3 ( v )
-    // *todo*
-
-}
-
 void Map:: update_gameover(){
+    wclear(window_status);
     // 윈도우 테두리 출력
-    wborder(window_gameover, '|', '|', '-', '-', '+', '+', '+', '+');
+    wborder(window_status, '|', '|', '-', '-', '+', '+', '+', '+');
 
     // todo //
     // int goal_length, goal_growth_item, goal_poison_item, goal_number_of_passed_gate
 
-    mvwprintw(window_gameover, 2, 10, "*GameOver*");
+    mvwprintw(window_status, 2, 10, "*GameOver*");
 
     // 윈도우 refresh
     refresh();
-    wrefresh(window_gameover);
+    wrefresh(window_status);
     // 다시 딜레이 설정 후, 아무 키나 입력 받으면 종료
     nodelay(stdscr, false);
     getch();
-    wclear(window_gameover);
+    wclear(window_status);
 }
 
 void Map:: update_gameclear(){
+    wclear(window_status);
     // 윈도우 테두리 출력
-    wborder(window_gameclear, '|', '|', '-', '-', '+', '+', '+', '+');
+    wborder(window_status, '|', '|', '-', '-', '+', '+', '+', '+');
 
     // todo //
     // int goal_length, goal_growth_item, goal_poison_item, goal_number_of_passed_gate
 
-    mvwprintw(window_gameclear, 2, 10, "*GameClear*");
+    mvwprintw(window_status, 2, 10, "*GameClear*");
 
     // 윈도우 refresh
     refresh();
-    wrefresh(window_gameclear);
+    wrefresh(window_status);
     // 다시 딜레이 설정 후, 아무 키나 입력 받으면 종료
     nodelay(stdscr, false);
     getch();
-    wclear(window_gameclear);
+    wclear(window_status);
 }
 
+
 void Map:: update_stageclear(){
+    wclear(window_status);
     // 윈도우 테두리 출력
-    wborder(window_stageclear, '|', '|', '-', '-', '+', '+', '+', '+');
+    wborder(window_status, '|', '|', '-', '-', '+', '+', '+', '+');
 
     // todo //
     // int goal_length, goal_growth_item, goal_poison_item, goal_number_of_passed_gate
 
-    mvwprintw(window_stageclear, 2, 10, "*Stage Clear*");
-    mvwprintw(window_stageclear, 2, 10, "*Press any key to go next stage*");
+    mvwprintw(window_status, 2, 10, "*Stage Clear*");
+    mvwprintw(window_status, 2, 10, "*Press any key to go next stage*");
 
     // 윈도우 refresh
     refresh();
-    wrefresh(window_stageclear);
+    wrefresh(window_status);
     // 다시 딜레이 설정 후, 아무 키나 입력 받으면 종료
     nodelay(stdscr, false);
     getch();
-    wclear(window_stageclear);
+    wclear(window_status);
 }
 
 // del_win(): 모든 윈도우를 제거
