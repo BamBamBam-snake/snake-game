@@ -1,5 +1,11 @@
 #include "mission.h"
 #include "snake.h"
+
+void Mission::init_Mission(){
+        score[0] = 3; score[1] = 0; score[2] = 0; score[3] = 0;
+        stageClear = false;
+        cur_mission[0] = false; cur_mission[1] = false; cur_mission[2] = false; cur_mission[3] = true;
+}
 void Mission::createScore(Map m, Snake snake){
     // 윈도우 테두리 출력
     wborder(m.window_score, '|', '|', '-', '-', '+', '+', '+', '+');
@@ -55,7 +61,25 @@ void Mission::createMission(Map m){
     refresh();
     wrefresh(m.window_mission);
 }
-void Mission::setMission(){}
-void Mission::check(){
+void Mission::setMission(Map m){
+    if(cur_mission[0]==true) mvwprintw(m.window_mission, 3, 25, "v");
+    else { mvwprintw(m.window_mission, 3, 25, " "); }
+    if(cur_mission[1]==true) mvwprintw(m.window_mission, 4, 25, "v");
+    else { mvwprintw(m.window_mission, 4, 25, " "); }
+    if(cur_mission[2]==true) mvwprintw(m.window_mission, 5, 25, "v");
+    else { mvwprintw(m.window_mission, 5, 25, " "); }
+    if(cur_mission[3]==true) mvwprintw(m.window_mission, 6, 25, "v");
+    else { mvwprintw(m.window_mission, 6, 25, " "); }
 
+    wrefresh(m.window_mission);
+}
+void Mission::check(Stage s){
+    if (score[0]>=goal_mission[s.num_of_stage][0]) cur_mission[0] = true;
+    if (score[1]>=goal_mission[s.num_of_stage][1]) cur_mission[1] = true;
+    if (score[2]>=goal_mission[s.num_of_stage][2]) cur_mission[2] = true;
+    if (score[3]>=goal_mission[s.num_of_stage][3]) cur_mission[3] = true;
+
+    for(int i=0; i<4; i++) { if(cur_mission[i] == false) return; }
+    goalStage[s.num_of_stage] = true;
+    stageClear = true;
 }

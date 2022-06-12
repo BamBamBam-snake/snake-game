@@ -11,6 +11,8 @@ void Snake::setInitialSnake()
     snakeLen = 3; // 스네이크 길이: 3
     gateCnt = 0; // 게이트 통과 횟수: 0
     
+    if(snake_body.size() != 0) snake_body.clear(); //스테이지 변경 시 스네이크 초기화
+
     // 시작 위치는 머리가 8,8
     snake_body.push_back(Position(8,8));
     snake_body.push_back(Position(8,7));
@@ -135,6 +137,7 @@ Stage Snake::checkPosition(Stage s, Mission *ms)
         snake_body.push_back(Position(next_row, next_col));
         snakeLen++; // 스네이크 길이 증가
         ms->score[1] += 1;// 현재 성장 아이템 먹은 개수 증가
+        if (ms->score[0]<snakeLen) ms->score[0]=snakeLen;
         return s;
         }
     
