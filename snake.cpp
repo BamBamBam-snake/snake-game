@@ -149,7 +149,7 @@ Stage Snake::checkPosition(Stage s, Mission *ms)
     }
 
     // 게이트를 들어갈때
-    else if (s.stage[s.num_of_stage][headRow][headCol] == 7)
+    else if (s.stage[s.num_of_stage][next_row][next_col] == 7)
     {
         bool exitOuterLoop = false;
         for (int i = 0; i < 30; i++)
@@ -158,34 +158,33 @@ Stage Snake::checkPosition(Stage s, Mission *ms)
             {
                 if (s.stage[s.num_of_stage][i][j] == 7 && !(i == headRow && j == headCol))
                 {
-                    headRow = i;
-                    headCol = j;
+                    // 스네이크 머리 위치 변경하기
+                    // headRow = i;
+                    // headCol = j;
 
+                    // 게이트 통과 카운트 증가시키기
+        
                     if (i == 0)
                     {
-                        movingDirection = 'd'; // 아래쪽 방향
-                        tail_x_dir = 0;
-                        tail_y_dir = 1;
+                    movingDirection = 'd'; // 아래 방향
+                    head_direction = Position(-1, 0);
                     }
                     else if (i == 29)
                     {
-                        movingDirection = 'u'; // 위쪽 방향
-                        tail_x_dir = 0;
-                        tail_y_dir = -1;
+                    movingDirection = 'u'; // 위쪽 방향
+                    head_direction = Position(1, 0);
                     }
 
                     else if (j == 0)
                     {
-                        movingDirection = 'r'; // 오른쪽 방향
-                        tail_x_dir = -1;
-                        tail_y_dir = 0;
+                    movingDirection = 'r'; // 우측 방향
+                    head_direction = Position(0, 1);
                     }
 
                     else if (j == 39)
                     {
-                        movingDirection = 'l'; // 왼쪽 방향
-                        tail_x_dir = 1;
-                        tail_y_dir = 0;
+                    movingDirection = 'l'; // 좌측 방향
+                    head_direction = Position(0, -1);
                     }
                     exitOuterLoop = true;
                     break;
