@@ -8,8 +8,8 @@ void Snake::setInitialSnake()
     tail_x_dir = -1;
     tail_y_dir = 0;
 
-    // 스네이크 길이: 3
-    snakeLen = 3;
+    snakeLen = 3; // 스네이크 길이: 3
+    gateCnt = 0; // 게이트 통과 횟수: 0
     
     // 시작 위치는 머리가 8,8
     snake_body.push_back(Position(8,8));
@@ -169,7 +169,7 @@ Stage Snake::checkPosition(Stage s, Mission *ms)
                     // headRow = i;
                     // headCol = j;
 
-                    // Score의 Current Gate count 증가시키기
+                    gateCnt++ ; // 게이트 통과 횟수 증가
         
                     // 위쪽 벽의 게이트로 진출
                     if (i == 0)
