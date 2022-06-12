@@ -70,6 +70,7 @@ void Snake::setDirection()
         if (movingDirection == 'l')
         {
             isGameOver = true; // 반대방향 키를 누르면 게임 종료
+            gameOverMSG = "Unable to move in the opposite direction.";
         }
         movingDirection = 'r'; // 우측 방향
         head_direction = Position(0, 1);
@@ -79,6 +80,7 @@ void Snake::setDirection()
         if (movingDirection == 'r')
         {
             isGameOver = true; // 반대방향 키를 누르면 게임 종료
+            gameOverMSG = "Unable to move in the opposite direction.";
         }
         movingDirection = 'l'; // 좌측 방향
         head_direction = Position(0, -1);
@@ -88,6 +90,7 @@ void Snake::setDirection()
         if (movingDirection == 'u')
         {
             isGameOver = true; // 반대방향 키를 누르면 게임 종료
+            gameOverMSG = "Unable to move in the opposite direction.";
         }
         movingDirection = 'd'; // 아래 방향
         head_direction = Position(-1, 0);
@@ -97,6 +100,7 @@ void Snake::setDirection()
         if (movingDirection == 'd')
         {
             isGameOver = true; // 반대방향 키를 누르면 게임 종료
+            gameOverMSG = "Unable to move in the opposite direction.";
         }
         movingDirection = 'u'; // 위쪽 방향
         head_direction = Position(1, 0);
@@ -115,11 +119,13 @@ Stage Snake::checkPosition(Stage s, Mission *ms)
     if (s.stage[s.num_of_stage][next_row][next_col] == 1 || s.stage[s.num_of_stage][next_row][next_col] == 2)
     {
         isGameOver = true;
+        gameOverMSG = "The snake crashed into the wall.";
         return s;
     }
     // 자기 몸에 부딪혔을때
     else if (s.stage[s.num_of_stage][next_row][next_col] == 4){
         isGameOver = true;
+        gameOverMSG = "The snake stepped on its tail.";
         return s;
     }
     
@@ -141,7 +147,8 @@ Stage Snake::checkPosition(Stage s, Mission *ms)
         ms->score[2]++; // 현재 포이즌 아이템 먹은 개수 증가
         if (snakeLen < 3) // 스네이크의 길이가 3보다 작으면 게임 종료
         {
-            isGameOver = true; 
+            isGameOver = true;
+            gameOverMSG = "The snake is less than 3.";
             return s;
         }
         
@@ -149,7 +156,7 @@ Stage Snake::checkPosition(Stage s, Mission *ms)
     }
 
     // 게이트를 들어갈때
-    else if (s.stage[s.num_of_stage][headRow][headCol] == 7)
+    else if (s.stage[s.num_of_stage][next_row][next_col] == 7)
     {
         bool exitOuterLoop = false;
         for (int i = 0; i < 30; i++)
@@ -158,35 +165,44 @@ Stage Snake::checkPosition(Stage s, Mission *ms)
             {
                 if (s.stage[s.num_of_stage][i][j] == 7 && !(i == headRow && j == headCol))
                 {
-                    headRow = i;
-                    headCol = j;
+                    // 스네이크 머리 위치 변경하기
+                    // headRow = i;
+                    // headCol = j;
 
+                    // Score의 Current Gate count 증가시키기
+        
+                    // 위쪽 벽의 게이트로 진출
                     if (i == 0)
                     {
-                        movingDirection = 'd'; // 아래쪽 방향
-                        tail_x_dir = 0;
-                        tail_y_dir = 1;
+                    movingDirection = 'd'; // 아래 방향
+                    head_direction = Position(-1, 0);
                     }
+
+                    // 아래쪽 벽의 게이트로 진출
                     else if (i == 29)
                     {
-                        movingDirection = 'u'; // 위쪽 방향
-                        tail_x_dir = 0;
-                        tail_y_dir = -1;
+                    movingDirection = 'u'; // 위쪽 방향
+                    head_direction = Position(1, 0);
                     }
 
+                    // 왼쪽 벽의 게이트로 진출
                     else if (j == 0)
                     {
-                        movingDirection = 'r'; // 오른쪽 방향
-                        tail_x_dir = -1;
-                        tail_y_dir = 0;
+                    movingDirection = 'r'; // 우측 방향
+                    head_direction = Position(0, 1);
                     }
 
+                    // 오른쪽 벽의 게이트로 진출
                     else if (j == 39)
                     {
-                        movingDirection = 'l'; // 왼쪽 방향
-                        tail_x_dir = 1;
-                        tail_y_dir = 0;
+                    movingDirection = 'l'; // 좌측 방향
+                    head_direction = Position(0, -1);
                     }
+
+                    else{
+                        // 그 이외의 경우 정의하기
+                    }
+
                     exitOuterLoop = true;
                     break;
                 }
