@@ -31,11 +31,13 @@ int main()
 
     while (true)
     {   
+        ms.setMission(m); // 스테이지 미션
         nodelay(stdscr, true); // 딜레이 없이 게임 진행
 
         // s = snake.removeSnake(s); // 기존 스네이크 지우기
         snake.setDirection();     // 스네이크 방향 탐지
         s = snake.checkPosition(s, &ms); // 스네이크가 이동한 위치 확인 (아이템, 게이트, 벽이 존재하는지)
+        ms.check(s); // 미션충족 여부 확인
         if(snake.isGameOver){ // 게임 종료 조건에 충족했을경우 (벽 충돌, 방향키 반대)
             m.update_gameover();
             break;
@@ -56,11 +58,21 @@ int main()
 
 
         // 스테이지 클리어의 경우
-        // m.update_stageclear();
+        if(ms.stageClear==true && s.num_of_stage != 3) { 
+            m.update_stageclear(); 
+            m.init_window();
+            snake.setInitialSnake(); 
+            s=snake.makeSnake(s); 
+            ms.init_Mission();
+            s.num_of_stage++;
+        }
+        
         
         // 게임 클리어의 경우
-        // m.update_gameclear();
-
+        if(ms.stageClear==true && s.num_of_stage == 3){
+            m.update_gameclear();
+            break;
+        }
         s = m.update_map(s);
         ms.createScore(m,snake);
         ms.createMission(m);

@@ -4,6 +4,7 @@
 #include "map.h"
 #include "stage.h"
 #include <vector>
+#include <string>
 using namespace std;
 
 class Mission;
@@ -29,12 +30,14 @@ public:
     Stage removeSnake(Stage s);
     Stage moveSnake(Stage s);
 
-    int snakeLen;
+    int snakeLen; // 스네이크 길이
+    int gateCnt; // 게이트 통과 횟수
     int headRow, headCol;
     char movingDirection; // r, l, u, d
     int tail_x_dir;       //   -1 , 1
     int tail_y_dir;       // -1 , 1
     int isGameOver = false; // 게임 패배
+    string gameOverMSG;
     Position head_direction;
     vector<Position> snake_body;
 };
