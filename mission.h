@@ -1,6 +1,6 @@
 #pragma once
 #include "map.h"
-#include "snake.h"
+class Snake;
 
 class Mission{
 	public:

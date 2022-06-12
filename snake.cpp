@@ -1,6 +1,6 @@
 #include <ncurses.h>
 #include "snake.h"
-
+#include "mission.h"
 void Snake::setInitialSnake()
 {
     // 우측방향으로 이동
@@ -105,7 +105,7 @@ void Snake::setDirection()
 }
 
 // snake head 충돌에 따른 이벤트 생성 함수
-Stage Snake::checkPosition(Stage s)
+Stage Snake::checkPosition(Stage s, Mission *ms)
 {
     // 다음 loop에서 진행할 뱀의 head 좌표
     int next_row = snake_body[0].row + head_direction.row;
@@ -128,6 +128,7 @@ Stage Snake::checkPosition(Stage s)
         // 맵에서 증가한 몸의 좌표 값을 insert (0번째 인덱스)
         snake_body.push_back(Position(next_row, next_col));
         snakeLen++; // 스네이크 길이 증가
+        ms->score[1] += 1;// 현재 성장 아이템 먹은 개수 증가
         return s;
         }
     
@@ -137,6 +138,7 @@ Stage Snake::checkPosition(Stage s)
         s.stage[s.num_of_stage][snake_body.back().row][snake_body.back().col] = 0;
         snake_body.pop_back(); // 꼬리를 제거
         snakeLen--; // 스네이크 길이 감소
+        ms->score[2]++; // 현재 포이즌 아이템 먹은 개수 증가
         if (snakeLen < 3) // 스네이크의 길이가 3보다 작으면 게임 종료
         {
             isGameOver = true; 

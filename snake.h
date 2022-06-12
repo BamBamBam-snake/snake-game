@@ -6,6 +6,7 @@
 #include <vector>
 using namespace std;
 
+class Mission;
 
 struct Position
 {
@@ -23,8 +24,7 @@ class Snake
 public:
     void setInitialSnake();
     void setDirection();
-    
-    Stage checkPosition(Stage s);
+    Stage checkPosition(Stage s, Mission *ms);
     Stage makeSnake(Stage s);
     Stage removeSnake(Stage s);
     Stage moveSnake(Stage s);

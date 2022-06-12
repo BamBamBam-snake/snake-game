@@ -1,5 +1,5 @@
 #include "mission.h"
-
+#include "snake.h"
 void Mission::createScore(Map m, Snake snake){
     // 윈도우 테두리 출력
     wborder(m.window_score, '|', '|', '-', '-', '+', '+', '+', '+');
