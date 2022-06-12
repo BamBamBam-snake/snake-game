@@ -29,9 +29,6 @@ void Map:: init_window(){
     // 윈도우 테두리 출력
     wborder(window_status, '|', '|', '-', '-', '+', '+', '+', '+');
 
-    // todo //
-    // int goal_length, goal_growth_item, goal_poison_item, goal_number_of_passed_gate
-
     mvwprintw(window_status, 2, 4, "Press any key to start");
      // 윈도우 refresh
     refresh();
@@ -133,8 +130,9 @@ void Map:: update_stageclear(){
     // todo //
     // int goal_length, goal_growth_item, goal_poison_item, goal_number_of_passed_gate
 
-    mvwprintw(window_status, 2, 10, "*Stage Clear*");
-    mvwprintw(window_status, 2, 10, "*Press any key to go next stage*");
+    mvwprintw(window_status, 1, 8, "* Stage Clear *");
+    mvwprintw(window_status, 2, 7, "* Press any key *");
+    mvwprintw(window_status, 3, 6, "* to go next stage *");
 
     // 윈도우 refresh
     refresh();
@@ -143,6 +141,15 @@ void Map:: update_stageclear(){
     nodelay(stdscr, false);
     getch();
     wclear(window_status);
+}
+
+void Map::update_status(Stage s){
+    wclear(window_status);
+    wborder(window_status, '|', '|', '-', '-', '+', '+', '+', '+');
+    mvwprintw(window_status, 2, 10, "Stage : %d",s.num_of_stage + 1);
+     // 윈도우 refresh
+    refresh();
+    wrefresh(window_status);
 }
 
 // del_win(): 모든 윈도우를 제거
