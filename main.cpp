@@ -58,13 +58,15 @@ int main()
 
 
         // 스테이지 클리어의 경우
-        if(ms.stageClear==true && s.num_of_stage != 3) { 
+        if(ms.stageClear == true && s.num_of_stage != 3) {
+            current_time = 0 ;
             m.update_stageclear(); 
             m.init_window();
             snake.setInitialSnake(); 
-            s=snake.makeSnake(s); 
+            s = snake.makeSnake(s); 
             ms.init_Mission();
             s.num_of_stage++;
+            continue;
         }
         
         
@@ -73,6 +75,8 @@ int main()
             m.update_gameclear();
             break;
         }
+        
+        m.update_status(s); // 상태 창 업데이트
         s = m.update_map(s);
         ms.createScore(m,snake);
         ms.createMission(m);
