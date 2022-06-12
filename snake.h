@@ -4,6 +4,7 @@
 #include "map.h"
 #include "stage.h"
 #include <vector>
+#include <string>
 using namespace std;
 
 class Mission;
@@ -35,6 +36,7 @@ public:
     int tail_x_dir;       //   -1 , 1
     int tail_y_dir;       // -1 , 1
     int isGameOver = false; // 게임 패배
+    string gameOverMSG;
     Position head_direction;
     vector<Position> snake_body;
 };
