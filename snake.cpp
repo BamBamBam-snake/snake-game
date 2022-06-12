@@ -125,7 +125,7 @@ Stage Snake::checkPosition(Stage s, Mission *ms)
     
     // Growth Item을 먹었을때
     else if (s.stage[s.num_of_stage][next_row][next_col] == 5){
-        // 맵에서 증가한 몸의 좌표 값을 insert (0번째 인덱스)
+        // 맵에서 증가한 몸의 좌표 값을 맨 뒤에다가 insert
         snake_body.push_back(Position(next_row, next_col));
         snakeLen++; // 스네이크 길이 증가
         ms->score[1] += 1;// 현재 성장 아이템 먹은 개수 증가
