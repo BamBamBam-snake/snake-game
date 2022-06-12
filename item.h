@@ -10,5 +10,5 @@ class Item{
         int num_of_growth;
         int row, col;
         int cnt;
-        int item_position[5][2];
+        int item_position[6][2];
 };
