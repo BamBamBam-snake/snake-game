@@ -79,6 +79,7 @@ Stage Map:: update_map(Stage s)
     return s;
 }
 
+/*
 // update_mission: 미션 윈도우를 업데이트
 void Map:: update_mission(){
     // 윈도우 테두리 출력
@@ -86,13 +87,12 @@ void Map:: update_mission(){
 
     // todo //
     // int goal_length, goal_growth_item, goal_poison_item, goal_number_of_passed_gate
-
     mvwprintw(window_mission, 1, 10, "*Mission*");
     mvwprintw(window_mission, 3, 2, "Goal Length : %d", 0);
     mvwprintw(window_mission, 4, 2, "Goal Growth Item : %d", 0);
     mvwprintw(window_mission, 5, 2, "Goal Posion Item : %d", 0);
     mvwprintw(window_mission, 6, 2, "Goal Gate : %d", 0);
-
+    
     // 윈도우 refresh
     refresh();
     wrefresh(window_mission);
@@ -108,7 +108,7 @@ void Map:: update_score(){
     wborder(window_score, '|', '|', '-', '-', '+', '+', '+', '+');
 
     mvwprintw(window_score, 1, 11, "#Score#"); 
-    mvwprintw(window_score, 3, 2, "Current Length : %d / %d", 0, 0);  // current / max
+    mvwprintw(window_score, 3, 2, "Current Length : %d / %d", 0,0);  // current / max
     mvwprintw(window_score, 4, 2, "Current Growth Item :   %d  ", 0);
     mvwprintw(window_score, 5, 2, "Current Poison Item :   %d  ", 0);
     mvwprintw(window_score, 6, 2, "Current Gate :   %d   ", 0);
@@ -121,6 +121,7 @@ void Map:: update_score(){
     // *todo*
 
 }
+*/
 
 void Map:: update_gameover(){
     // 윈도우 테두리 출력

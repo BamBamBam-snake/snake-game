@@ -3,6 +3,7 @@
 #include <unistd.h>
 
 #include "map.h"
+#include "mission.h"
 
 // 맵 테스트를 위한 main 함수
 int main()
@@ -11,6 +12,7 @@ int main()
     Gate g;
     Stage s;
     Map m;
+    Mission ms;
     Snake snake;
 
     m.init_window(); // 맵 초기화
@@ -23,8 +25,8 @@ int main()
     s = snake.makeSnake(s);  // 스네이크 생성
 
     s = m.update_map(s);
-    m.update_score();
-    m.update_mission();
+    ms.createScore(m,snake);
+    ms.createMission(m);
 
     while (true)
     {
@@ -49,8 +51,8 @@ int main()
         s = snake.makeSnake(s); // 스네이크 새로 생성
 
         s = m.update_map(s);
-        m.update_score();
-        m.update_mission();
+        ms.createScore(m,snake);
+        ms.createMission(m);
 
         usleep(200000); // 0.2초 sleep
     }
