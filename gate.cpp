@@ -26,8 +26,12 @@ Stage Gate:: generate_gate(Stage s){
     while(s.stage[s.num_of_stage][gate2_row][gate2_col] != 1){
         gate2_row = rand() % 30;
         gate2_col = rand() % 40;
-        
-        if(s.stage[s.num_of_stage][gate2_row - 1][gate2_col] == 2 || s.stage[s.num_of_stage][gate2_row+1][gate2_col] == 2 || s.stage[s.num_of_stage][gate2_row][gate2_col-1] == 2 || s.stage[s.num_of_stage][gate2_row][gate2_col + 1] == 2){
+        // 게이트 2는 게이트 1과 겹치지않게 함
+        if( (gate2_row == gate1_row && gate2_col == gate1_col) ||
+            s.stage[s.num_of_stage][gate2_row - 1][gate2_col] == 2 || 
+            s.stage[s.num_of_stage][gate2_row+1][gate2_col] == 2 || 
+            s.stage[s.num_of_stage][gate2_row][gate2_col-1] == 2 || 
+            s.stage[s.num_of_stage][gate2_row][gate2_col + 1] == 2){
             gate2_row = 0; gate2_col = 0;
         }
     }
