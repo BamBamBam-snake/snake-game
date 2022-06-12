@@ -169,30 +169,40 @@ Stage Snake::checkPosition(Stage s, Mission *ms)
                     // headRow = i;
                     // headCol = j;
 
-                    // 게이트 통과 카운트 증가시키기
+                    // Score의 Current Gate count 증가시키기
         
+                    // 위쪽 벽의 게이트로 진출
                     if (i == 0)
                     {
                     movingDirection = 'd'; // 아래 방향
                     head_direction = Position(-1, 0);
                     }
+
+                    // 아래쪽 벽의 게이트로 진출
                     else if (i == 29)
                     {
                     movingDirection = 'u'; // 위쪽 방향
                     head_direction = Position(1, 0);
                     }
 
+                    // 왼쪽 벽의 게이트로 진출
                     else if (j == 0)
                     {
                     movingDirection = 'r'; // 우측 방향
                     head_direction = Position(0, 1);
                     }
 
+                    // 오른쪽 벽의 게이트로 진출
                     else if (j == 39)
                     {
                     movingDirection = 'l'; // 좌측 방향
                     head_direction = Position(0, -1);
                     }
+
+                    else{
+                        // 그 이외의 경우 정의하기
+                    }
+
                     exitOuterLoop = true;
                     break;
                 }
