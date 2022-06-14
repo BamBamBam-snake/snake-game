@@ -22,9 +22,9 @@ void Map:: init_window(){
     // @window_mission: 미션 표시 윈도우
     window_mission = newwin(10, 30, 5, 15);
     // @window_score: 점수 표시 윈도우
-    window_score = newwin(10, 30, 5, 55);
+    window_score = newwin(10, 30, 5, 57);
     // @window_status: 게임 상태 표시 윈도우
-    window_status = newwin(5, 30, 15, 55);
+    window_status = newwin(5, 30, 15, 57);
 
     // 윈도우 테두리 출력
     wborder(window_status, '|', '|', '-', '-', '+', '+', '+', '+');
@@ -110,6 +110,7 @@ void Map:: update_gameclear(){
     // todo //
     // int goal_length, goal_growth_item, goal_poison_item, goal_number_of_passed_gate
 
+    mvwprintw(window_status, 1, 8, "*Congratuation*");
     mvwprintw(window_status, 2, 10, "*GameClear*");
 
     // 윈도우 refresh
