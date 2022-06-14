@@ -13,8 +13,6 @@ class Map {
     private:
         WINDOW *window_map, *window_mission, *window_score, *window_status;
     public:
-        int current_size;
-        int goal_size;
         void init_window();
         Stage update_map(Stage s);
         void update_gameover();

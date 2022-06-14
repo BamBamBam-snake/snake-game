@@ -1,6 +1,5 @@
 #include "map.h"
 
-// extern void generate_item();
 void Map:: init_window(){
     // initscr(): ncurses TUI 모드 시작
     initscr();
@@ -12,10 +11,6 @@ void Map:: init_window(){
     curs_set(0);
     // 키보드 입력한 값을 화면에 안보이게함
     noecho();
-
-    // mvprintw(20, 60, "Press S to start game");
-    // mvprintw(22, 60, " ↑ : Up → : Right  ← : Left ↓ : Down ");
-    // mvprintw(24, 60, "Press Q to exit game");
    
     // @window_map: x = 15, y = 15 위치에 가로 40, 세로 30의 크기의 윈도우
     window_map = newwin(30, 40, 15, 15);
@@ -87,10 +82,6 @@ void Map:: update_gameover(){
     wclear(window_status);
     // 윈도우 테두리 출력
     wborder(window_status, '|', '|', '-', '-', '+', '+', '+', '+');
-
-    // todo //
-    // int goal_length, goal_growth_item, goal_poison_item, goal_number_of_passed_gate
-
     mvwprintw(window_status, 2, 10, "*GameOver*");
 
     // 윈도우 refresh
@@ -107,9 +98,6 @@ void Map:: update_gameclear(){
     // 윈도우 테두리 출력
     wborder(window_status, '|', '|', '-', '-', '+', '+', '+', '+');
 
-    // todo //
-    // int goal_length, goal_growth_item, goal_poison_item, goal_number_of_passed_gate
-
     mvwprintw(window_status, 1, 8, "*Congratuation*");
     mvwprintw(window_status, 2, 10, "*GameClear*");
 
@@ -122,14 +110,11 @@ void Map:: update_gameclear(){
     wclear(window_status);
 }
 
-
+// update_stageclear: 스테이지 클리어시 @window_status를 update
 void Map:: update_stageclear(){
     wclear(window_status);
     // 윈도우 테두리 출력
     wborder(window_status, '|', '|', '-', '-', '+', '+', '+', '+');
-
-    // todo //
-    // int goal_length, goal_growth_item, goal_poison_item, goal_number_of_passed_gate
 
     mvwprintw(window_status, 1, 8, "* Stage Clear *");
     mvwprintw(window_status, 2, 7, "* Press any key *");
@@ -143,7 +128,7 @@ void Map:: update_stageclear(){
     getch();
     wclear(window_status);
 }
-
+// update_status: 현재 진행중인 스테이지 출력
 void Map::update_status(Stage s){
     wclear(window_status);
     wborder(window_status, '|', '|', '-', '-', '+', '+', '+', '+');
@@ -153,7 +138,7 @@ void Map::update_status(Stage s){
     wrefresh(window_status);
 }
 
-// del_win(): 모든 윈도우를 제거
+// del_win: 모든 윈도우를 제거
 void Map::del_win(){
     delwin(window_map);
     delwin(window_mission);
