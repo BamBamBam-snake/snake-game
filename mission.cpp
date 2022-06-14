@@ -34,7 +34,7 @@ void Mission::createMission(Map m){
         mvwprintw(m.window_mission, 5, 2, "Goal Posion Item : %d", goal_mission[0][2]);
         mvwprintw(m.window_mission, 6, 2, "Goal Gate : %d", goal_mission[0][3]);
     }
-    else if(goalStage[0]==true){
+    else if(goalStage[1]==false){
         mvwprintw(m.window_mission, 1, 10, "*Mission*");
         mvwprintw(m.window_mission, 3, 2, "Goal Length : %d", goal_mission[1][0]);
         mvwprintw(m.window_mission, 4, 2, "Goal Growth Item : %d", goal_mission[1][1]);
@@ -42,14 +42,14 @@ void Mission::createMission(Map m){
         mvwprintw(m.window_mission, 6, 2, "Goal Gate : %d", goal_mission[1][3]);
 
     }
-    else if(goalStage[1]==true){
+    else if(goalStage[2]==false){
         mvwprintw(m.window_mission, 1, 10, "*Mission*");
         mvwprintw(m.window_mission, 3, 2, "Goal Length : %d", goal_mission[2][0]);
         mvwprintw(m.window_mission, 4, 2, "Goal Growth Item : %d", goal_mission[2][1]);
         mvwprintw(m.window_mission, 5, 2, "Goal Posion Item : %d", goal_mission[2][2]);
         mvwprintw(m.window_mission, 6, 2, "Goal Gate : %d", goal_mission[2][3]);
     }
-    else if(goalStage[2]==true){
+    else if(goalStage[3]==false){
         mvwprintw(m.window_mission, 1, 10, "*Mission*");
         mvwprintw(m.window_mission, 3, 2, "Goal Length : %d", goal_mission[3][0]);
         mvwprintw(m.window_mission, 4, 2, "Goal Growth Item : %d", goal_mission[3][1]);
