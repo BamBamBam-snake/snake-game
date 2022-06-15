@@ -13,8 +13,9 @@ struct Position
 {
     int row;
     int col;
-    Position(){}
-    Position(int r, int c){
+    Position() {}
+    Position(int r, int c)
+    {
         row = r;
         col = c;
     }
@@ -30,14 +31,12 @@ public:
     Stage removeSnake(Stage s);
     Stage moveSnake(Stage s);
 
-    int snakeLen; // 스네이크 길이
-    int gateCnt; // 게이트 통과 횟수
-    int headRow, headCol;
-    char movingDirection; // r, l, u, d
-    int tail_x_dir;       //   -1 , 1
-    int tail_y_dir;       // -1 , 1
-    int isGameOver = false; // 게임 패배
-    string gameOverMSG;
     Position head_direction;
     vector<Position> snake_body;
+
+    int snakeLen;           // 스네이크 길이
+    int gateCnt;            // 게이트 통과 횟수
+    char movingDirection;   // r, l, u, d
+    int isGameOver = false; // 게임 패배
+    string gameOverMSG;
 };

@@ -50,7 +50,7 @@ int main()
             s = i.generate_item(s); // 맵에 아이템 생성
             s = g.generate_gate(s); // 맵에 게이트 생성
             }
-        else if (time(NULL) - current_time > 5){ // 5초가 지나면 아이템과 게이트 재생성
+        else if (time(NULL) - current_time > 10){ // 10초가 지나면 아이템과 게이트 재생성
             current_time = 0;
             s = i.delete_item(s);
             s = g.delete_gate(s);
@@ -80,8 +80,7 @@ int main()
         ms.createScore(m,snake);
         ms.createMission(m);
 
-        usleep(100000); // 0.1초 sleep
-    
+        usleep(150000); // 0.15초 sleep
     }
 
     // 윈도우를 소멸시킴
