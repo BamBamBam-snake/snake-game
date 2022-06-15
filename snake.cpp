@@ -7,7 +7,7 @@ void Snake::setInitialSnake()
     gateCnt = 0;  // 게이트 통과 횟수: 0
 
     if (snake_body.size() != 0)
-        snake_body.clear(); //스테이지 변경 시 스네이크 초기화
+        snake_body.clear(); // 스테이지 변경 시 스네이크 초기화
 
     // 시작 위치는 머리가 8,8
     snake_body.push_back(Position(8, 8));
@@ -46,6 +46,17 @@ Stage Snake::moveSnake(Stage s)
     // 스네이크 다음 이동 좌표
     int next_row = snake_body[0].row + head_direction.row;
     int next_col = snake_body[0].col + head_direction.col;
+
+    // 포탈 통과 머리 부분
+    if (snake_body.size() < snakeLen)
+        snake_body.push_back(Position(next_row, next_col));
+
+    // 포탈 통과 꼬리 부분
+    if (snake_body_gate_tail.size() > 0)
+    {
+        s.stage[s.num_of_stage][snake_body_gate_tail.back().row][snake_body_gate_tail.back().col] = 0;
+        snake_body_gate_tail.pop_back();
+    }
 
     if (s.stage[s.num_of_stage][snake_body.back().row][snake_body.back().col] == 4)
         s.stage[s.num_of_stage][snake_body.back().row][snake_body.back().col] = 0; // 맵에서 꼬리 부분을 0으로 바꿔줌
@@ -179,21 +190,21 @@ Stage Snake::checkPosition(Stage s, Mission *ms)
                 {
                     gateCnt++; // 게이트 통과 횟수 증가
 
-                    // 기존 스네이크 제거
-                    for (int k = 0; k < snakeLen; k++)
-                    {
-                        s.stage[s.num_of_stage][snake_body.back().row][snake_body.back().col] = 0;
-                        snake_body.pop_back();
-                    }
-                    snake_body.clear();
+                    s.stage[s.num_of_stage][snake_body.back().row][snake_body.back().col] = 0;
+                    snake_body.pop_back();
+
+                    snake_body_gate_tail = snake_body;
+                    s.stage[s.num_of_stage][snake_body_gate_tail[0].row][snake_body_gate_tail[0].col] = 4; // [게이트 꼬리부분] 머리 모양을 몸통 모양으로 변경
+
+                    snake_body.clear(); // 기존 스네이크 제거
+
+                    snake_body.push_back(Position(i, j)); // 출구 위치로 머리 추가
 
                     // 위쪽 벽의 게이트로 진출
                     if (i == 0)
                     {
                         movingDirection = 'd'; // 아래 방향
                         head_direction = Position(1, 0);
-                        for (int k = 0; k < snakeLen; k++)
-                            snake_body.push_back(Position(i - k, j));
                     }
 
                     // 아래쪽 벽의 게이트로 진출
@@ -201,8 +212,6 @@ Stage Snake::checkPosition(Stage s, Mission *ms)
                     {
                         movingDirection = 'u'; // 위쪽 방향
                         head_direction = Position(-1, 0);
-                        for (int k = 0; k < snakeLen; k++)
-                            snake_body.push_back(Position(i + k, j));
                     }
 
                     // 왼쪽 벽의 게이트로 진출
@@ -210,8 +219,6 @@ Stage Snake::checkPosition(Stage s, Mission *ms)
                     {
                         movingDirection = 'r'; // 우측 방향
                         head_direction = Position(0, 1);
-                        for (int k = 0; k < snakeLen; k++)
-                            snake_body.push_back(Position(i, j - k));
                     }
 
                     // 오른쪽 벽의 게이트로 진출
@@ -219,8 +226,6 @@ Stage Snake::checkPosition(Stage s, Mission *ms)
                     {
                         movingDirection = 'l'; // 좌측 방향
                         head_direction = Position(0, -1);
-                        for (int k = 0; k < snakeLen; k++)
-                            snake_body.push_back(Position(i, j + k));
                     }
 
                     // Gate 의 위치가 가장자리가 아닐 때
@@ -245,9 +250,6 @@ Stage Snake::checkPosition(Stage s, Mission *ms)
                             // 위로 진입 시 => 좌로 진출
                             else if (movingDirection == 'u')
                                 head_direction = Position(0, -1);
-
-                            for (int k = 0; k < snakeLen; k++)
-                                snake_body.push_back(Position(i, j - k));
                         }
 
                         // 진출 방향이 상-하 인경우
@@ -269,16 +271,11 @@ Stage Snake::checkPosition(Stage s, Mission *ms)
                             // 아래로 진입 시 => 아래로 진출
                             else if (movingDirection == 'd')
                                 head_direction = Position(1, 0);
-
-                            for (int k = 0; k < snakeLen; k++)
-                                snake_body.push_back(Position(i - k, j));
                         }
 
                         else
                         {
                             // 그 이외의 경우
-                            for (int k = 0; k < snakeLen; k++)
-                                snake_body.push_back(Position(i, j - k));
                         }
                     }
 

@@ -33,6 +33,8 @@ public:
 
     Position head_direction;
     vector<Position> snake_body;
+    vector<Position> snake_body_gate_tail;
+
 
     int snakeLen;            // 스네이크 길이
     int gateCnt;             // 게이트 통과 횟수
