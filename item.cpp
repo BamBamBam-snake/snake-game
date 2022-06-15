@@ -20,9 +20,9 @@ Stage Item:: generate_item(Stage s){
         item_position[cnt][0] = row; item_position[cnt][1] = col;
         // map안에 있을 경우
         if(s.stage[s.num_of_stage][row][col] == 0){
-            // 성장 아이템 수가 생성한 아이템 수보다 작은 경우 성장 아이템 생성
+                // 성장 아이템 수가 생성한 아이템 수보다 작은 경우 성장 아이템 생성
             if(cnt >= num_of_growth){
-            // 성장 아이템은 5
+                // 성장 아이템은 5
                 s.stage[s.num_of_stage][row][col] = 5;
                 cnt++;
                 }
