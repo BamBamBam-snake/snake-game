@@ -289,6 +289,25 @@ Stage Snake::checkPosition(Stage s, Mission *ms)
             if (exitOuterLoop == true)
                 break;
         }
+        s = removeGate(s); // 게이트를 통과한뒤에 게이트 제거
     }
+
+    return s;
+}
+
+// Gate를 찾아 Wall로 변경
+Stage Snake::removeGate(Stage s)
+{
+    for (int i = 0; i < 30; i++)
+    {
+        for (int j = 0; j < 40; j++)
+        {
+            if (s.stage[s.num_of_stage][i][j] == 7)
+            {
+                s.stage[s.num_of_stage][i][j] = 1;
+            }
+        }
+    }
+
     return s;
 }

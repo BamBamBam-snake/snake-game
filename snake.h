@@ -28,8 +28,8 @@ public:
     void setDirection();
     Stage checkPosition(Stage s, Mission *ms);
     Stage makeSnake(Stage s);
-    Stage removeSnake(Stage s);
     Stage moveSnake(Stage s);
+    Stage removeGate(Stage s);
 
     Position head_direction;
     vector<Position> snake_body;
