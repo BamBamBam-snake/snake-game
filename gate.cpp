@@ -1,5 +1,5 @@
 #include "gate.h"
-// generate_gate : 벽애 게이트 생성
+// generate_gate : 벽에 게이트 생성
 Stage Gate:: generate_gate(Stage s){
     // 매 번 다른 난수 생성
     srand(time(NULL));
