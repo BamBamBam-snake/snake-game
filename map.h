@@ -20,5 +20,4 @@ class Map {
         void update_stageclear();
         void update_status(Stage s);
         void del_win();
-        void play();
 };
