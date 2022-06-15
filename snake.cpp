@@ -74,7 +74,7 @@ void Snake::setDirection()
         if (movingDirection == 'l')
         {
             isGameOver = true; // 반대방향 키를 누르면 게임 종료
-            gameOverMSG = "Unable to move in the opposite direction.";
+            gameOverMSG = "Your snake can't go backwards.";
         }
         movingDirection = 'r'; // 우측 방향
         head_direction = Position(0, 1);
@@ -84,7 +84,7 @@ void Snake::setDirection()
         if (movingDirection == 'r')
         {
             isGameOver = true; // 반대방향 키를 누르면 게임 종료
-            gameOverMSG = "Unable to move in the opposite direction.";
+            gameOverMSG = "Your snake can't go backwards.";
         }
         movingDirection = 'l'; // 좌측 방향
         head_direction = Position(0, -1);
@@ -94,7 +94,7 @@ void Snake::setDirection()
         if (movingDirection == 'd')
         {
             isGameOver = true; // 반대방향 키를 누르면 게임 종료
-            gameOverMSG = "Unable to move in the opposite direction.";
+            gameOverMSG = "Your snake can't go backwards.";
         }
         movingDirection = 'u'; // 위쪽 방향
         head_direction = Position(-1, 0);
@@ -104,7 +104,7 @@ void Snake::setDirection()
         if (movingDirection == 'u')
         {
             isGameOver = true; // 반대방향 키를 누르면 게임 종료
-            gameOverMSG = "Unable to move in the opposite direction.";
+            gameOverMSG = "Your snake can't go backwards.";
         }
         movingDirection = 'd'; // 아래 방향
         head_direction = Position(1, 0);
@@ -123,14 +123,14 @@ Stage Snake::checkPosition(Stage s, Mission *ms)
     if (s.stage[s.num_of_stage][next_row][next_col] == 1 || s.stage[s.num_of_stage][next_row][next_col] == 2)
     {
         isGameOver = true;
-        gameOverMSG = "The snake crashed into the wall.";
+        gameOverMSG = "Your snake crashed into the wall.";
         return s;
     }
     // 자기 몸에 부딪혔을때
     else if (s.stage[s.num_of_stage][next_row][next_col] == 4)
     {
         isGameOver = true;
-        gameOverMSG = "The snake stepped on its tail.";
+        gameOverMSG = "Your snake stepped on its tail.";
         return s;
     }
 
@@ -157,7 +157,7 @@ Stage Snake::checkPosition(Stage s, Mission *ms)
         if (snakeLen < 3)      // 스네이크의 길이가 3보다 작으면 게임 종료
         {
             isGameOver = true;
-            gameOverMSG = "The snake is less than 3.";
+            gameOverMSG = "Your snake is less than 3.";
             return s;
         }
 
