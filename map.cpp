@@ -3,10 +3,6 @@
 void Map:: init_window(){
     // initscr(): ncurses TUI 모드 시작
     initscr();
-    // start_color(): 색깔 사용
-    start_color(); 
-    // 유니코드 사용
-    setlocale(LC_ALL, "");
     // 커서 안보이게함
     curs_set(0);
     // 키보드 입력한 값을 화면에 안보이게함
@@ -31,14 +27,14 @@ void Map:: init_window(){
 }
 
 // update_map: map 윈도우를 업데이트
-Stage Map:: update_map(Stage s)
+void Map:: update_map(Stage s)
 {    
     // @stage 배열 값에 따라 윈도우 구성
     for(int row = 0; row < 30; row++){
         for(int col = 0; col < 40; col++){
             // immune wall
             if(s.stage[s.num_of_stage][row][col] == 2){
-                mvwprintw(window_map, row, col, "X"); // \u2B1B 
+                mvwprintw(window_map, row, col, "X");
             }
             // wall
             else if(s.stage[s.num_of_stage][row][col] == 1) {
@@ -75,7 +71,6 @@ Stage Map:: update_map(Stage s)
     // 윈도우 refresh
     refresh();
     wrefresh(window_map);
-    return s;
 }
 
 void Map:: update_gameover(){
@@ -143,6 +138,7 @@ void Map::del_win(){
     delwin(window_map);
     delwin(window_mission);
     delwin(window_score);
+    delwin(window_status);
     // 전체 윈도우 종료
     endwin();
 }
