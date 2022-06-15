@@ -22,7 +22,7 @@ int main()
     snake.setInitialSnake(); // 초기 스네이크 위치 세팅
     s = snake.makeSnake(s);  // 스네이크 생성
 
-    s = m.update_map(s);
+    m.update_map(s);
     ms.createScore(m,snake);
     ms.createMission(m);
 
@@ -56,9 +56,9 @@ int main()
             s = g.delete_gate(s);
         }
 
-
         // 스테이지 클리어의 경우
         if(ms.stageClear == true && s.num_of_stage != 3) {
+            ms.setMission(m);
             current_time = 0 ;
             m.update_stageclear(); 
             m.init_window();
@@ -69,7 +69,6 @@ int main()
             continue;
         }
         
-        
         // 게임 클리어의 경우
         if(ms.stageClear==true && s.num_of_stage == 3){
             m.update_gameclear();
@@ -77,7 +76,7 @@ int main()
         }
         
         m.update_status(s); // 상태 창 업데이트
-        s = m.update_map(s);
+        m.update_map(s);
         ms.createScore(m,snake);
         ms.createMission(m);
 
