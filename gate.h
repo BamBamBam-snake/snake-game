@@ -7,10 +7,8 @@ using namespace std;
 
 class Gate{
     public:
-        int collision_gate();
         Stage generate_gate(Stage s);
         Stage delete_gate(Stage s);
         int gate1_row, gate1_col, gate2_row, gate2_col;
         int gate_position[2][2];
 };
-// vector<int> gate;
