@@ -58,6 +58,7 @@ int main()
 
         // 스테이지 클리어의 경우
         if(ms.stageClear == true && s.num_of_stage != 3) {
+            ms.setMission(m);
             current_time = 0 ;
             m.update_stageclear(); 
             m.init_window();
