@@ -9,7 +9,8 @@ void Map:: init_window(){
     curs_set(0);
     // 키보드 입력한 값을 화면에 안보이게함
     noecho();
-   
+    // color 사용
+    start_color();
     // @window_map: x = 15, y = 15 위치에 가로 40, 세로 30의 크기의 윈도우
     window_map = newwin(30, 40, 15, 15);
     // @window_mission: 미션 표시 윈도우
