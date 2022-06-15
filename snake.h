@@ -28,15 +28,15 @@ public:
     void setDirection();
     Stage checkPosition(Stage s, Mission *ms);
     Stage makeSnake(Stage s);
-    Stage removeSnake(Stage s);
     Stage moveSnake(Stage s);
+    Stage removeGate(Stage s);
 
     Position head_direction;
     vector<Position> snake_body;
 
-    int snakeLen;           // 스네이크 길이
-    int gateCnt;            // 게이트 통과 횟수
-    char movingDirection;   // r, l, u, d
-    int isGameOver = false; // 게임 패배
-    string gameOverMSG;
+    int snakeLen;            // 스네이크 길이
+    int gateCnt;             // 게이트 통과 횟수
+    char movingDirection;    // r, l, u, d
+    int isGameOver = false;  // 게임 패배
+    const char *gameOverMSG; // 게임 패배 이유
 };

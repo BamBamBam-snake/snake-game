@@ -1,4 +1,6 @@
 #include "map.h"
+#include "snake.h"
+#include <cstring>
 
 void Map:: init_window(){
     // initscr(): ncurses TUI 모드 시작
@@ -73,11 +75,13 @@ void Map:: update_map(Stage s)
     wrefresh(window_map);
 }
 
-void Map:: update_gameover(){
+void Map:: update_gameover(Snake snake){
     wclear(window_status);
     // 윈도우 테두리 출력
     wborder(window_status, '|', '|', '-', '-', '+', '+', '+', '+');
-    mvwprintw(window_status, 2, 10, "*GameOver*");
+
+    mvwprintw(window_status, 1, 10, "*GameOver*");
+    mvwprintw(window_status, 2, 1, snake.gameOverMSG);
 
     // 윈도우 refresh
     refresh();

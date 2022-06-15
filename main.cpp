@@ -39,7 +39,7 @@ int main()
         s = snake.checkPosition(s, &ms); // 스네이크가 이동한 위치 확인 (아이템, 게이트, 벽이 존재하는지)
         ms.check(s); // 미션충족 여부 확인
         if(snake.isGameOver){ // 게임 종료 조건에 충족했을경우 (벽 충돌, 방향키 반대)
-            m.update_gameover();
+            m.update_gameover(snake);
             break;
         }
         s = snake.moveSnake(s); 

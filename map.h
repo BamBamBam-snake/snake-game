@@ -8,6 +8,8 @@
 #include <locale.h>
 using namespace std;
 
+class Snake;
+
 class Map {
     friend class Mission;
     private:
@@ -15,7 +17,7 @@ class Map {
     public:
         void init_window();
         void update_map(Stage s);
-        void update_gameover();
+        void update_gameover(Snake snake);
         void update_gameclear();
         void update_stageclear();
         void update_status(Stage s);
