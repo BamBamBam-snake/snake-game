@@ -15,8 +15,6 @@ int main()
     Mission ms;
     Snake snake;
 
-    time_t current_time = 0;
-
     m.init_window(); // 맵 초기화
 
     snake.setInitialSnake(); // 초기 스네이크 위치 세팅
@@ -25,7 +23,10 @@ int main()
     m.update_map(s);
     ms.createScore(m,snake);
     ms.createMission(m);
-
+    
+    i.item_time = 0; // 아이템 생성 쿨타임 초기화
+    g.gate_time = 0; // 게이트 생성 쿨타임 초기화
+    
     // 아무 키나 입력하면 시작
     getch();
 
@@ -44,28 +45,43 @@ int main()
         }
         s = snake.moveSnake(s); 
         s = snake.makeSnake(s); // 스네이크 새로 생성
-
-        if(current_time == 0){ // 첫 시간 저장
-            current_time = time(NULL); 
-            s = i.generate_item(s); // 맵에 아이템 생성
+        if(g.gate_time == 0){ // 첫 게이트 생성 시간 저장
+            g.gate_time = time(NULL); 
             s = g.generate_gate(s); // 맵에 게이트 생성
-            }
-        else if (time(NULL) - current_time > 10){ // 10초가 지나면 아이템과 게이트 재생성
-            current_time = 0;
-            s = i.delete_item(s);
+        }
+        else if (time(NULL) - g.gate_time > 7 && snake.numOfPassedBody <= 0){ // 게이트가 통과중이 아니고, 7초가 지나면 게이트 재생성
+            g.gate_time = 0;
             s = g.delete_gate(s);
+        }
+
+        if(i.item_time == 0){ // 첫 게이트 생성 시간 저장
+            i.item_time = time(NULL); 
+            s = i.generate_item(s); // 맵에 아이템 생성
+            }
+        else if (time(NULL) - i.item_time > 10){ // 10초가 지나면 아이템 재생성
+            i.item_time = 0;
+            s = i.delete_item(s);
         }
 
         // 스테이지 클리어의 경우
         if(ms.stageClear == true && s.num_of_stage != 3) {
             ms.setMission(m);
-            current_time = 0 ;
+            i.item_time = 0;
+            g.gate_time = 0;
             m.update_stageclear(); 
             m.init_window();
             snake.setInitialSnake(); 
             s = snake.makeSnake(s); 
             ms.init_Mission();
             s.num_of_stage++;
+
+            // 키 입력 시 다음 스테이지 진행
+            s = snake.makeSnake(s); // 스네이크 새로 생성   
+            m.update_status(s); 
+            m.update_map(s);
+            ms.createScore(m,snake);
+            ms.createMission(m);
+            getch();
             continue;
         }
         
@@ -76,10 +92,10 @@ int main()
         }
         
         m.update_status(s); // 상태 창 업데이트
-        m.update_map(s);
+        m.update_map(s); // 맵 업데이트
         ms.createScore(m,snake);
         ms.createMission(m);
-
+        snake.numOfPassedBody--;
         usleep(150000); // 0.15초 sleep
     }
 
