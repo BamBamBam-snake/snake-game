@@ -2,6 +2,7 @@
 
 class Stage{
     public:
+        // @num_of_stage는 현재 stage를 나타내는 변수
         int num_of_stage = 0;
         // @stage는 맵을 구성하는 배열, [num_of_stage][세로 크기][가로 크기]]
         int stage[4][30][40] ={{
