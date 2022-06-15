@@ -27,7 +27,7 @@ void Map:: init_window(){
 }
 
 // update_map: map 윈도우를 업데이트
-void Map:: update_map(Stage s)
+Stage Map:: update_map(Stage s)
 {    
     // @stage 배열 값에 따라 윈도우 구성
     for(int row = 0; row < 30; row++){
