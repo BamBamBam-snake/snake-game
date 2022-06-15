@@ -8,6 +8,7 @@
 using namespace std;
 
 class Mission;
+class Gate;
 
 struct Position
 {
@@ -35,10 +36,9 @@ public:
     vector<Position> snake_body;
     vector<Position> snake_body_gate_tail;
 
-
     int snakeLen;            // 스네이크 길이
-    int gateCnt;             // 게이트 통과 횟수
     char movingDirection;    // r, l, u, d
     int isGameOver = false;  // 게임 패배
     const char *gameOverMSG; // 게임 패배 이유
+    int numOfPassedBody; // 게이트를 통과한 몸의 수
 };

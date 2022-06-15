@@ -1,10 +1,10 @@
 #include <ncurses.h>
 #include "snake.h"
 #include "mission.h"
+#include "gate.h"
 void Snake::setInitialSnake()
 {
     snakeLen = 3; // 스네이크 길이: 3
-    gateCnt = 0;  // 게이트 통과 횟수: 0
 
     if (snake_body.size() != 0)
         snake_body.clear(); // 스테이지 변경 시 스네이크 초기화
@@ -65,7 +65,7 @@ Stage Snake::moveSnake(Stage s)
 
     // 맵에서 새로운 head 위치에 다음 좌표 값을 insert (0번째 인덱스)
     snake_body.insert(snake_body.begin(), Position(next_row, next_col));
-
+    
     return s;
 }
 
@@ -129,7 +129,6 @@ Stage Snake::checkPosition(Stage s, Mission *ms)
     // 다음 loop에서 진행할 뱀의 head 좌표
     int next_row = snake_body[0].row + head_direction.row;
     int next_col = snake_body[0].col + head_direction.col;
-
     // 벽에 충돌할때
     if (s.stage[s.num_of_stage][next_row][next_col] == 1 || s.stage[s.num_of_stage][next_row][next_col] == 2)
     {
@@ -180,15 +179,16 @@ Stage Snake::checkPosition(Stage s, Mission *ms)
     {
         int headRow = next_row;
         int headCol = next_col;
-
+        numOfPassedBody = snake_body.size(); // 게이트를 통과해야 하는 몸의 수
+        ms->score[3]++; // 게이트 통과 횟수 증가
         bool exitOuterLoop = false;
         for (int i = 0; i < 30; i++)
         {
-            for (int j = 0; j < 40; j++)
+            for (int j = 0; j < 40; j++)   
             {
                 if (s.stage[s.num_of_stage][i][j] == 7 && !(i == headRow && j == headCol))
                 {
-                    gateCnt++; // 게이트 통과 횟수 증가
+                    
 
                     s.stage[s.num_of_stage][snake_body.back().row][snake_body.back().col] = 0;
                     snake_body.pop_back();
@@ -285,24 +285,6 @@ Stage Snake::checkPosition(Stage s, Mission *ms)
             }
             if (exitOuterLoop == true)
                 break;
-        }
-        s = removeGate(s); // 게이트를 통과한뒤에 게이트 제거
-    }
-
-    return s;
-}
-
-// Gate를 찾아 Wall로 변경
-Stage Snake::removeGate(Stage s)
-{
-    for (int i = 0; i < 30; i++)
-    {
-        for (int j = 0; j < 40; j++)
-        {
-            if (s.stage[s.num_of_stage][i][j] == 7)
-            {
-                s.stage[s.num_of_stage][i][j] = 1;
-            }
         }
     }
 
