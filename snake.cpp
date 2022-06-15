@@ -7,7 +7,7 @@ void Snake::setInitialSnake()
     gateCnt = 0;  // 게이트 통과 횟수: 0
 
     if (snake_body.size() != 0)
-        snake_body.clear(); //스테이지 변경 시 스네이크 초기화
+        snake_body.clear(); // 스테이지 변경 시 스네이크 초기화
 
     // 시작 위치는 머리가 8,8
     snake_body.push_back(Position(8, 8));
@@ -47,8 +47,16 @@ Stage Snake::moveSnake(Stage s)
     int next_row = snake_body[0].row + head_direction.row;
     int next_col = snake_body[0].col + head_direction.col;
 
+    // 포탈 통과 머리 부분
     if (snake_body.size() < snakeLen)
         snake_body.push_back(Position(next_row, next_col));
+
+    // 포탈 통과 꼬리 부분
+    if (snake_body_gate_tail.size() > 0)
+    {
+        s.stage[s.num_of_stage][snake_body_gate_tail.back().row][snake_body_gate_tail.back().col] = 0;
+        snake_body_gate_tail.pop_back();
+    }
 
     if (s.stage[s.num_of_stage][snake_body.back().row][snake_body.back().col] == 4)
         s.stage[s.num_of_stage][snake_body.back().row][snake_body.back().col] = 0; // 맵에서 꼬리 부분을 0으로 바꿔줌
@@ -182,13 +190,13 @@ Stage Snake::checkPosition(Stage s, Mission *ms)
                 {
                     gateCnt++; // 게이트 통과 횟수 증가
 
-                    // 기존 스네이크 제거
-                    for (int k = 0; k < snakeLen; k++)
-                    {
-                        s.stage[s.num_of_stage][snake_body.back().row][snake_body.back().col] = 0;
-                        snake_body.pop_back();
-                    }
-                    snake_body.clear();
+                    s.stage[s.num_of_stage][snake_body.back().row][snake_body.back().col] = 0;
+                    snake_body.pop_back();
+
+                    snake_body_gate_tail = snake_body;
+                    s.stage[s.num_of_stage][snake_body_gate_tail[0].row][snake_body_gate_tail[0].col] = 4; // [게이트 꼬리부분] 머리 모양을 몸통 모양으로 변경
+
+                    snake_body.clear(); // 기존 스네이크 제거
 
                     snake_body.push_back(Position(i, j)); // 출구 위치로 머리 추가
 
