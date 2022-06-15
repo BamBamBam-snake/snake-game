@@ -11,4 +11,5 @@ class Item{
         int row, col;
         int cnt;
         int item_position[6][2];
+        time_t item_time;
 };
