@@ -124,7 +124,7 @@ void Map:: update_gameclear(){
     // 윈도우 테두리 출력
     wborder(window_status, '|', '|', '-', '-', '+', '+', '+', '+');
 
-    mvwprintw(window_status, 1, 8, "*Congratuation*");
+    mvwprintw(window_status, 1, 8, "*Congratulation*");
     mvwprintw(window_status, 2, 10, "*GameClear*");
 
     // 윈도우 refresh
