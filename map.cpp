@@ -11,7 +11,7 @@ void Map:: init_window(){
     noecho();
     // color 사용
     start_color();
-    // @window_map: 행 = 15, 열 = 15 위치에 가로 40, 세로 30의 크기의 윈도우
+    // @window_map: 행 = 10, 열 = 15 위치에 가로 40, 세로 30의 크기의 윈도우
     window_map = newwin(30, 40, 10, 15);
     // @window_mission: 미션 표시 윈도우
     window_mission = newwin(10, 30, 10, 57);
