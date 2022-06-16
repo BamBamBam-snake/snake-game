@@ -5,7 +5,7 @@
 #include "map.h"
 #include "mission.h"
 
-// 맵 테스트를 위한 main 함수
+// 게임 실행을 위한 main 함수
 int main()
 {
     Item i;

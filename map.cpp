@@ -1,6 +1,5 @@
 #include "map.h"
 #include "snake.h"
-#include <cstring>
 
 void Map:: init_window(){
     // initscr(): ncurses TUI 모드 시작
