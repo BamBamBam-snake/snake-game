@@ -45,13 +45,16 @@ int main()
         }
         s = snake.moveSnake(s); 
         s = snake.makeSnake(s); // 스네이크 새로 생성
-        if(g.gate_time == 0){ // 첫 게이트 생성 시간 저장
-            g.gate_time = time(NULL); 
-            s = g.generate_gate(s); // 맵에 게이트 생성
-        }
-        else if (time(NULL) - g.gate_time > 7 && snake.numOfPassedBody <= 0){ // 게이트가 통과중이 아니고, 7초가 지나면 게이트 재생성
-            g.gate_time = 0;
-            s = g.delete_gate(s);
+
+        if(ms.score[1] >= 2){ //growth item을 2개이상 획득한 경우
+            if(g.gate_time == 0){ // 첫 게이트 생성 시간 저장
+                g.gate_time = time(NULL); 
+                s = g.generate_gate(s); // 맵에 게이트 생성
+            }
+            else if (time(NULL) - g.gate_time > 7 && snake.numOfPassedBody <= 0){ // 게이트가 통과중이 아니고, 7초가 지나면 게이트 재생성
+                g.gate_time = 0;
+                s = g.delete_gate(s);
+            }
         }
 
         if(i.item_time == 0){ // 첫 게이트 생성 시간 저장
