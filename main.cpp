@@ -99,7 +99,7 @@ int main()
         ms.createScore(m,snake);
         ms.createMission(m);
         snake.numOfPassedBody--;
-        usleep(150000); // 0.15초 sleep
+        usleep(120000); // 0.12초 sleep
     }
 
     // 윈도우를 소멸시킴
