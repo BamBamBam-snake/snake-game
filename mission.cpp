@@ -20,13 +20,11 @@ void Mission::createScore(Map m, Snake snake){
     refresh();
     wrefresh(m.window_score);
 }
-void Mission::setScore(){}
+
 void Mission::createMission(Map m){
 	// 윈도우 테두리 출력
     wborder(m.window_mission, '|', '|', '-', '-', '+', '+', '+', '+');
 
-    // todo //
-    // int goal_length, goal_growth_item, goal_poison_item, goal_number_of_passed_gate
     if(goalStage[0]==false){
         mvwprintw(m.window_mission, 1, 10, "*Mission*");
         mvwprintw(m.window_mission, 3, 2, "Goal Length : %d", goal_mission[0][0]);

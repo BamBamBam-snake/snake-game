@@ -7,7 +7,6 @@ class Mission{
 	public:
 		void init_Mission();
 		void createScore(Map m, Snake snake);
-		void setScore();
 		void createMission(Map m);
 		void setMission(Map m);
 		void check(Stage s);
