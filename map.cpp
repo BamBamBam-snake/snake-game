@@ -78,19 +78,19 @@ void Map:: update_map(Stage s)
             // growth item
             else if(s.stage[s.num_of_stage][row][col] == 5) {
                 wattron(window_map, COLOR_PAIR(5));
-                mvwprintw(window_map, row, col, "G");
+                mvwprintw(window_map, row, col, " ");
                 wattroff(window_map, COLOR_PAIR(5));
             }
             // poison item
             else if(s.stage[s.num_of_stage][row][col] == 6) {
                 wattron(window_map, COLOR_PAIR(6));
-                mvwprintw(window_map, row, col, "P");
+                mvwprintw(window_map, row, col, " ");
                 wattroff(window_map, COLOR_PAIR(6));
             }
             // gate
             else if(s.stage[s.num_of_stage][row][col] == 7) {
                 wattron(window_map, COLOR_PAIR(7));
-                mvwprintw(window_map, row, col, "G");
+                mvwprintw(window_map, row, col, " ");
                 wattroff(window_map, COLOR_PAIR(7));
             }
 
