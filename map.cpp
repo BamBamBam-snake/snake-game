@@ -11,14 +11,14 @@ void Map:: init_window(){
     noecho();
     // color 사용
     start_color();
-    // @window_map: x = 15, y = 15 위치에 가로 40, 세로 30의 크기의 윈도우
-    window_map = newwin(30, 40, 15, 15);
+    // @window_map: 행 = 15, 열 = 15 위치에 가로 40, 세로 30의 크기의 윈도우
+    window_map = newwin(30, 40, 10, 15);
     // @window_mission: 미션 표시 윈도우
-    window_mission = newwin(10, 30, 15, 57);
+    window_mission = newwin(10, 30, 10, 57);
     // @window_score: 점수 표시 윈도우
-    window_score = newwin(10, 30, 25, 57);
+    window_score = newwin(10, 30, 20, 57);
     // @window_status: 게임 상태 표시 윈도우
-    window_status = newwin(5, 30, 40, 57);
+    window_status = newwin(5, 30, 35, 57);
 
     // 윈도우 테두리 출력
     wborder(window_status, '|', '|', '-', '-', '+', '+', '+', '+');
@@ -27,6 +27,13 @@ void Map:: init_window(){
      // 윈도우 refresh
     refresh();
     wrefresh(window_status);
+}
+
+// init_color: 사용할 color의 pair 설정
+void Map::init_color(){
+    init_pair(5, COLOR_GREEN, COLOR_BLACK);     // Growth Item
+    init_pair(6, COLOR_RED, COLOR_BLACK);         // Poison Item
+    init_pair(7, COLOR_YELLOW, COLOR_BLACK);   // Gate
 }
 
 // update_map: map 윈도우를 업데이트
@@ -57,15 +64,21 @@ void Map:: update_map(Stage s)
             }
             // growth item
             else if(s.stage[s.num_of_stage][row][col] == 5) {
+                wattron(window_map, COLOR_PAIR(5));
                 mvwprintw(window_map, row, col, "+");
+                wattroff(window_map, COLOR_PAIR(5));
             }
             // poison item
             else if(s.stage[s.num_of_stage][row][col] == 6) {
+                wattron(window_map, COLOR_PAIR(6));
                 mvwprintw(window_map, row, col, "-");
+                wattroff(window_map, COLOR_PAIR(6));
             }
             // gate
             else if(s.stage[s.num_of_stage][row][col] == 7) {
+                wattron(window_map, COLOR_PAIR(7));
                 mvwprintw(window_map, row, col, "G");
+                wattroff(window_map, COLOR_PAIR(7));
             }
 
         } 

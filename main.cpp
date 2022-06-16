@@ -16,7 +16,7 @@ int main()
     Snake snake;
 
     m.init_window(); // 맵 초기화
-
+    m.init_color(); // 컬러 설정
     snake.setInitialSnake(); // 초기 스네이크 위치 세팅
     s = snake.makeSnake(s);  // 스네이크 생성
 
