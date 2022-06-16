@@ -15,9 +15,7 @@ void Mission::createScore(Map m, Snake snake){
     mvwprintw(m.window_score, 4, 2, "Current Growth Item :   %d  ", score[1]);
     mvwprintw(m.window_score, 5, 2, "Current Poison Item :   %d  ", score[2]);
     mvwprintw(m.window_score, 6, 2, "Current Gate :   %d   ", score[3]);
-
-    // 윈도우 refresh
-    refresh();
+    
     wrefresh(m.window_score);
 }
 
@@ -54,9 +52,6 @@ void Mission::createMission(Map m){
         mvwprintw(m.window_mission, 5, 2, "Goal Posion Item : %d", goal_mission[3][2]);
         mvwprintw(m.window_mission, 6, 2, "Goal Gate : %d", goal_mission[3][3]);
     }
-
-    // 윈도우 refresh
-    refresh();
     wrefresh(m.window_mission);
 }
 void Mission::setMission(Map m){
