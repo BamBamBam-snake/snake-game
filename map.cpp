@@ -31,9 +31,14 @@ void Map:: init_window(){
 
 // init_color: 사용할 color의 pair 설정
 void Map::init_color(){
-    init_pair(5, COLOR_GREEN, COLOR_BLACK);     // Growth Item
-    init_pair(6, COLOR_RED, COLOR_BLACK);         // Poison Item
-    init_pair(7, COLOR_YELLOW, COLOR_BLACK);   // Gate
+    init_pair(0, COLOR_BLACK, 234); //background : Gray
+    init_pair(1, COLOR_BLACK, 240); //wall : light gray
+    init_pair(2, COLOR_BLACK, 15); //immune wall : white
+    init_pair(3, COLOR_BLACK, COLOR_BLUE);
+    init_pair(4, COLOR_BLACK, 153); //snake body : sky blue
+    init_pair(5, COLOR_BLACK, COLOR_GREEN);     // Growth Item
+    init_pair(6, COLOR_BLACK, COLOR_RED);         // Poison Item
+    init_pair(7, COLOR_BLACK, COLOR_MAGENTA);   // Gate
 }
 
 // update_map: map 윈도우를 업데이트
@@ -44,34 +49,42 @@ void Map:: update_map(Stage s)
         for(int col = 0; col < 40; col++){
             // immune wall
             if(s.stage[s.num_of_stage][row][col] == 2){
-                mvwprintw(window_map, row, col, "X");
+                wattron(window_map, COLOR_PAIR(2));
+                mvwprintw(window_map, row, col, " ");
+                wattroff(window_map, COLOR_PAIR(2));
             }
             // wall
             else if(s.stage[s.num_of_stage][row][col] == 1) {
-                mvwprintw(window_map, row, col, "O");
+                wattron(window_map, COLOR_PAIR(1));
+                mvwprintw(window_map, row, col, " ");
+                wattroff(window_map, COLOR_PAIR(1));
             }
             // background
             else if(s.stage[s.num_of_stage][row][col] == 0) {
+                wattron(window_map, COLOR_PAIR(0));
                 mvwprintw(window_map, row, col, " ");
+                wattroff(window_map, COLOR_PAIR(0));
             }
             // snake head
             else if(s.stage[s.num_of_stage][row][col] == 3) {
-                mvwprintw(window_map, row, col, "@");
-            }
+                wattron(window_map, COLOR_PAIR(3));
+                mvwprintw(window_map, row, col, " ");
+                wattroff(window_map, COLOR_PAIR(3));            }
             // snake body
             else if(s.stage[s.num_of_stage][row][col] == 4) {
-                mvwprintw(window_map, row, col, "*");
-            }
+                wattron(window_map, COLOR_PAIR(4));
+                mvwprintw(window_map, row, col, " ");
+                wattroff(window_map, COLOR_PAIR(4));            }
             // growth item
             else if(s.stage[s.num_of_stage][row][col] == 5) {
                 wattron(window_map, COLOR_PAIR(5));
-                mvwprintw(window_map, row, col, "+");
+                mvwprintw(window_map, row, col, "G");
                 wattroff(window_map, COLOR_PAIR(5));
             }
             // poison item
             else if(s.stage[s.num_of_stage][row][col] == 6) {
                 wattron(window_map, COLOR_PAIR(6));
-                mvwprintw(window_map, row, col, "-");
+                mvwprintw(window_map, row, col, "P");
                 wattroff(window_map, COLOR_PAIR(6));
             }
             // gate
