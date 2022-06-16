@@ -4,7 +4,7 @@
 void Mission::init_Mission(){
         score[0] = 3; score[1] = 0; score[2] = 0; score[3] = 0;
         stageClear = false;
-        cur_mission[0] = false; cur_mission[1] = false; cur_mission[2] = false; cur_mission[3] = true;
+        cur_mission[0] = false; cur_mission[1] = false; cur_mission[2] = false; cur_mission[3] = false;
 }
 void Mission::createScore(Map m, Snake snake){
     // 윈도우 테두리 출력
