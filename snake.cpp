@@ -2,6 +2,8 @@
 #include "snake.h"
 #include "mission.h"
 #include "gate.h"
+
+// 스네이크의 상태를 초기화
 void Snake::setInitialSnake()
 {
     snakeLen = 3; // 스네이크 길이: 3
@@ -19,7 +21,7 @@ void Snake::setInitialSnake()
     movingDirection = 'r';
 }
 
-// 스네이크 좌표 값에 따라 @stage 배열 수정
+// 스네이크 생성을 위한 Stage 배열 수정
 Stage Snake::makeSnake(Stage s)
 {
     vector<Position>::iterator it;
@@ -28,48 +30,49 @@ Stage Snake::makeSnake(Stage s)
         if (it == snake_body.begin())
         {
             if (s.stage[s.num_of_stage][snake_body[0].row][snake_body[0].col] != 7 && s.stage[s.num_of_stage][snake_body[0].row][snake_body[0].col] != 1)
-                s.stage[s.num_of_stage][snake_body[0].row][snake_body[0].col] = 3; // 첫 시작은 head 이므로 3
+                s.stage[s.num_of_stage][snake_body[0].row][snake_body[0].col] = 3; // 스네이크의 머리를 3으로 세팅
         }
         else
         {
             if (s.stage[s.num_of_stage][it->row][it->col] != 7 && s.stage[s.num_of_stage][it->row][it->col] != 1)
-                s.stage[s.num_of_stage][it->row][it->col] = 4;
+                s.stage[s.num_of_stage][it->row][it->col] = 4; // 스네이크의 몸을 4로 세팅
         }
     }
 
     return s;
 }
 
-// moveSnake: 현재 snake head 좌표 값에 @head_direction의 방향을 더해서 다음 움직임 좌표 계산
+// head_direction 방향으로 스네이크 이동
+// 현재 snake head 좌표 값에 @head_direction의 방향을 더해서 다음 움직임 좌표 계산
 Stage Snake::moveSnake(Stage s)
 {
     // 스네이크 다음 이동 좌표
     int next_row = snake_body[0].row + head_direction.row;
     int next_col = snake_body[0].col + head_direction.col;
 
-    // 포탈 통과 머리 부분
+    // [게이트 출구] 게이트를 통과를 완료한 스네이크
     if (snake_body.size() < snakeLen)
         snake_body.push_back(Position(next_row, next_col));
 
-    // 포탈 통과 꼬리 부분
-    if (snake_body_gate_tail.size() > 0)
+    // [게이트 입구] 게이트를 통과하기 전 스네이크
+    if (snake_gate_tail.size() > 0)
     {
-        s.stage[s.num_of_stage][snake_body_gate_tail.back().row][snake_body_gate_tail.back().col] = 0;
-        snake_body_gate_tail.pop_back();
+        s.stage[s.num_of_stage][snake_gate_tail.back().row][snake_gate_tail.back().col] = 0;
+        snake_gate_tail.pop_back();
     }
 
     if (s.stage[s.num_of_stage][snake_body.back().row][snake_body.back().col] == 4)
-        s.stage[s.num_of_stage][snake_body.back().row][snake_body.back().col] = 0; // 맵에서 꼬리 부분을 0으로 바꿔줌
+        s.stage[s.num_of_stage][snake_body.back().row][snake_body.back().col] = 0; // 맵에서 꼬리 부분을 0으로 변경
 
-    snake_body.pop_back(); // 꼬리를 제거
+    snake_body.pop_back(); // 스네이크 꼬리 제거
 
     // 맵에서 새로운 head 위치에 다음 좌표 값을 insert (0번째 인덱스)
     snake_body.insert(snake_body.begin(), Position(next_row, next_col));
-    
+
     return s;
 }
 
-// 뱀 이동 위치 설정
+// 방향키 입력을 받아 스네이크 이동방향 설정
 void Snake::setDirection()
 {
     nodelay(stdscr, true);
@@ -123,12 +126,13 @@ void Snake::setDirection()
     }
 }
 
-// snake head 충돌에 따른 이벤트 생성 함수
+// 다음 clock의 스네이크 위치에 따른 이벤트 생성
 Stage Snake::checkPosition(Stage s, Mission *ms)
 {
     // 다음 loop에서 진행할 뱀의 head 좌표
     int next_row = snake_body[0].row + head_direction.row;
     int next_col = snake_body[0].col + head_direction.col;
+
     // 벽에 충돌할때
     if (s.stage[s.num_of_stage][next_row][next_col] == 1 || s.stage[s.num_of_stage][next_row][next_col] == 2)
     {
@@ -136,6 +140,7 @@ Stage Snake::checkPosition(Stage s, Mission *ms)
         gameOverMSG = "  Your snake crashed into \n\t the wall.";
         return s;
     }
+
     // 자기 몸에 부딪혔을때
     else if (s.stage[s.num_of_stage][next_row][next_col] == 4)
     {
@@ -147,10 +152,10 @@ Stage Snake::checkPosition(Stage s, Mission *ms)
     // Growth Item을 먹었을때
     else if (s.stage[s.num_of_stage][next_row][next_col] == 5)
     {
-        // 맵에서 증가한 몸의 좌표 값을 맨 뒤에다가 insert
+        // 맵에서 증가한 몸의 좌표 값을 맨 뒤에 insert
         snake_body.push_back(Position(next_row, next_col));
         snakeLen++;        // 스네이크 길이 증가
-        ms->score[1] += 1; // 현재 성장 아이템 먹은 개수 증가
+        ms->score[1] += 1; // Growth Item 휙득 카운트 +1
         if (ms->score[0] < snakeLen)
             ms->score[0] = snakeLen;
         return s;
@@ -163,7 +168,7 @@ Stage Snake::checkPosition(Stage s, Mission *ms)
         s.stage[s.num_of_stage][snake_body.back().row][snake_body.back().col] = 0;
         snake_body.pop_back(); // 꼬리를 제거
         snakeLen--;            // 스네이크 길이 감소
-        ms->score[2]++;        // 현재 포이즌 아이템 먹은 개수 증가
+        ms->score[2]++;        // Poison Item 휙득 카운트 +1
         if (snakeLen < 3)      // 스네이크의 길이가 3보다 작으면 게임 종료
         {
             isGameOver = true;
@@ -174,30 +179,28 @@ Stage Snake::checkPosition(Stage s, Mission *ms)
         return s;
     }
 
-    // 게이트를 들어갈때
+    // Gate를 들어갈때
     else if (s.stage[s.num_of_stage][next_row][next_col] == 7)
     {
         int headRow = next_row;
         int headCol = next_col;
-        numOfPassedBody = snake_body.size(); // 게이트를 통과해야 하는 몸의 수
-        ms->score[3]++; // 게이트 통과 횟수 증가
+        numOfPassedBody = snake_body.size(); // Gate를 통과해야 하는 몸의 수
+        ms->score[3]++;                      // Gate 통과 횟수 증가
         bool exitOuterLoop = false;
         for (int i = 0; i < 30; i++)
         {
-            for (int j = 0; j < 40; j++)   
+            for (int j = 0; j < 40; j++)
             {
                 if (s.stage[s.num_of_stage][i][j] == 7 && !(i == headRow && j == headCol))
                 {
-                    
 
                     s.stage[s.num_of_stage][snake_body.back().row][snake_body.back().col] = 0;
                     snake_body.pop_back();
 
-                    snake_body_gate_tail = snake_body;
-                    s.stage[s.num_of_stage][snake_body_gate_tail[0].row][snake_body_gate_tail[0].col] = 4; // [게이트 꼬리부분] 머리 모양을 몸통 모양으로 변경
+                    snake_gate_tail = snake_body;
+                    s.stage[s.num_of_stage][snake_gate_tail[0].row][snake_gate_tail[0].col] = 4; // [게이트 꼬리부분] 머리 모양을 몸통 모양으로 변경
 
                     snake_body.clear(); // 기존 스네이크 제거
-
                     snake_body.push_back(Position(i, j)); // 출구 위치로 머리 추가
 
                     // 위쪽 벽의 게이트로 진출
@@ -255,7 +258,6 @@ Stage Snake::checkPosition(Stage s, Mission *ms)
                         // 진출 방향이 상-하 인경우
                         else if (s.stage[s.num_of_stage][i][j - 1] == 1 && s.stage[s.num_of_stage][i][j + 1] == 1 && s.stage[s.num_of_stage][i - 1][j] == 0 && s.stage[s.num_of_stage][i + 1][j] == 0)
                         {
-
                             // 오른쪽에서 진입 시 => 위로 진출
                             if (movingDirection == 'r')
                                 head_direction = Position(-1, 0);
@@ -272,13 +274,7 @@ Stage Snake::checkPosition(Stage s, Mission *ms)
                             else if (movingDirection == 'd')
                                 head_direction = Position(1, 0);
                         }
-
-                        else
-                        {
-                            // 그 이외의 경우
-                        }
                     }
-
                     exitOuterLoop = true;
                     break;
                 }
@@ -287,6 +283,5 @@ Stage Snake::checkPosition(Stage s, Mission *ms)
                 break;
         }
     }
-
     return s;
 }
