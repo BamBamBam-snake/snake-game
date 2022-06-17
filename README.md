@@ -20,6 +20,8 @@ $ ./snakegame
 
 [Watch Demo Video](https://drive.google.com/file/d/17iT9aE3fNwf8xDlvq0ecXTu83Yf_PYyJ/view?usp=sharing)
 
+![snake_gif](https://user-images.githubusercontent.com/39684946/174345294-12270d86-aa78-499e-9d4b-7fa14e616d1b.gif)
+
 
 ## User Manual
 
